@@ -1,0 +1,193 @@
+body {
+	direction:rtl;
+	unicode-bidi:embed;
+}
+
+/* Floats */
+
+.xt-float-left {
+  float: right;
+}
+
+.xt-float-right {
+  float: left;
+}
+
+/* Table */
+.xt-page table th,
+.xt-page .xt-table th {
+  text-align: right;
+}
+
+.xt-page table caption,
+.xt-page .xt-table caption {
+  text-align: right;
+}
+
+/* Grid */
+.xt-grid > * {
+  float: right;
+}
+
+.xt-text-left {
+  text-align: right;
+}
+
+.xt-text-right {
+  text-align: left;
+}
+
+/* Images */
+img.alignright, figure.alignright {
+  float: left;
+}
+
+img.alignleft, figure.alignleft {
+  float: right;
+}
+
+/* Gallery */
+.gallery .gallery-item {
+  float: right;
+}
+
+/* Skip Link */
+.skip-link {
+  position: absolute;
+  left: auto;
+  right: 0;
+}
+
+/* Navigation */
+
+/* Search */
+.xt-menu-item-search .xt-menu-search {
+  right: auto;
+  left: 0;
+}
+
+/* Sub Menu */
+.xt-sub-menu > .menu-item-has-children > a:after,
+.xt-sub-menu > .menu-item-has-children:not(.xt-mega-menu) > .sub-menu > .menu-item-has-children > a:after {
+  display: none;
+}
+
+.xt-sub-menu > .menu-item-has-children > a:before {
+  font-size: 14px;
+  margin-right: 5px;
+  font-family: "xt-framework";
+  content: "\f102";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.xt-sub-menu > .menu-item-has-children:not(.xt-mega-menu) > .sub-menu > .menu-item-has-children > a:before {
+	float: left;
+	margin-right: 20px;
+	font-size: 14px;
+  font-family: "xt-framework";
+  content: "\f104";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.xt-sub-menu > .menu-item-has-children:not(.xt-mega-menu) > .sub-menu > .menu-item-has-children > .sub-menu {
+	left: auto;
+	right: 100%;
+}
+
+/* Menu */
+.xt-menu-right .xt-menu > .menu-item,
+.xt-menu-left .xt-menu > .menu-item,
+.xt-menu-stacked .xt-menu > .menu-item,
+.xt-menu-stacked-advanced .xt-menu > .menu-item,
+.xt-menu-centered .xt-menu > .menu-item,
+#xt-pre-header .xt-menu > .menu-item {
+  float: right;
+}
+
+.xt-menu-right .xt-menu {
+  float: left;
+}
+
+.xt-menu-left .xt-logo-container {
+  text-align: left;
+}
+.xt-menu-left .xt-menu {
+  float: right;
+}
+
+.xt-menu-stacked .xt-menu {
+  text-align: right;
+}
+
+.xt-menu-toggle-container {
+  text-align: left;
+}
+
+/* Pre Header */
+#xt-pre-header .xt-menu {
+  float: left;
+}
+
+#xt-pre-header .xt-inner-pre-header-right .xt-menu {
+  float: left;
+}
+#xt-pre-header .xt-inner-pre-header-right .xt-menu .sub-menu {
+  text-align: right;
+}
+
+#xt-pre-header .xt-inner-pre-header-left .xt-menu {
+  float: right;
+}
+
+/* Sidebar */
+.xt-sidebar-left .xt-main {
+  float: left;
+}
+
+.xt-grid-divider > [class*="xt-medium-"]:nth-child(n+2):not(.xt-medium-1-1) {
+	border-left: none;
+	border-right: 1px solid #d9d9e0;
+}
+
+/* Footer */
+.xt-footer-two-columns .xt-inner-footer-right,
+.xt-footer-two-columns .xt-inner-pre-header-right,
+.xt-pre-header-two-columns .xt-inner-footer-right,
+.xt-pre-header-two-columns .xt-inner-pre-header-right {
+  text-align: left;
+}
+
+/* Comments */
+.comment .avatar {
+	margin-right: 0;
+	margin-left: 10px;
+}
+
+.comment .comment-edit-link {
+  right: auto;
+  left: 20px;
+}
+
+/* Scrolltop */
+.scrolltop {
+  right: auto;
+  left: 20px;
+}
+
+/* Contact Form 7 */
+span.wpcf7-not-valid-tip {
+  left: auto;
+  right: 5px;
+}

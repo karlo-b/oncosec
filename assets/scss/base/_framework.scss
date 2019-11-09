@@ -1,0 +1,810 @@
+/* Icon Font */
+@font-face {
+	font-family: 'xt-framework';
+	src: url('fonts/xt-framework.woff2') format('woff2'),
+		 url('fonts/xt-framework.woff') format('woff'),
+		 url('fonts/xt-framework.ttf') format('truetype'),
+		 url('fonts/xt-framework.eot');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+.xtf {
+	font-family: 'xt-framework' !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.xtf-arrow-up:before {
+	content: "\f101";
+}
+.xtf-arrow-down:before {
+	content: "\f102";
+}
+.xtf-arrow-right:before {
+	content: "\f103";
+}
+.xtf-arrow-left:before {
+	content: "\f104";
+}
+.xtf-hamburger:before {
+	content: "\f105";
+}
+.xtf-times:before {
+	content: "\f106";
+}
+.xtf-clock:before {
+	content: "\f107";
+}
+.xtf-cart:before {
+	content: "\f108";
+}
+.xtf-basket:before {
+	content: "\f109";
+}
+.xtf-caret-up:before {
+	content: "\f10a";
+}
+.xtf-caret-down:before {
+	content: "\f10b";
+}
+.xtf-caret-right:before {
+	content: "\f10c";
+}
+.xtf-caret-left:before {
+	content: "\f10d";
+}
+.xtf-facebook:before {
+	content: "\f10e";
+}
+.xtf-twitter:before {
+	content: "\f10f";
+}
+.xtf-google:before {
+	content: "\f110";
+}
+.xtf-youtube:before {
+	content: "\f111";
+}
+.xtf-pinterest:before {
+	content: "\f112";
+}
+.xtf-linkedin:before {
+	content: "\f113";
+}
+.xtf-vimeo:before {
+	content: "\f114";
+}
+.xtf-soundcloud:before {
+	content: "\f115";
+}
+.xtf-yelp:before {
+	content: "\f116";
+}
+.xtf-instagram:before {
+	content: "\f117";
+}
+.xtf-search:before {
+	content: "\f118";
+}
+.xtf-bag:before {
+	content: "\f119";
+}
+.xtf-behance:before {
+	content: "\f11a";
+}
+.xtf-spotify:before {
+	content: "\f11b";
+}
+.xtf-reddit:before {
+	content: "\f11c";
+}
+.xtf-info:before {
+	content: "\f11d";
+}
+.xtf-info-o:before {
+	content: "\f11e";
+}
+
+/* Container */
+.xt-container {
+	max-width: $breakpoint3;
+	padding: 0 $padding;
+}
+
+// Container Modifier (Center)
+.xt-container-center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+// Clearfix
+.xt-container:before,
+.xt-container:after {
+	content: "";
+	display: table;
+}
+
+.xt-container:after {
+	clear: both;
+}
+
+.xt-clearfix:before {
+	content: "";
+	display: table-cell;
+}
+
+.xt-clearfix:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/* Floats */
+.xt-float-left {
+	float: left;
+}
+
+.xt-float-right {
+	float: right;
+}
+
+[class*='xt-float-'] {
+	max-width: 100%;
+}
+
+/* Buttons */
+.xt-button, input[type="submit"] {
+	-webkit-appearance: none;
+	text-align: center;
+	padding: 14px 16px;
+	background: darken($base-color-alt,5%);
+	outline: 0;
+	border: none;
+	display: inline-block;
+	cursor: pointer;
+	color: #fff;
+	@include transition(all 0.2s);
+	line-height: 1;
+	font-weight: 700;
+}
+
+.xt-button:hover, input[type="submit"]:hover {
+	background: $base-color;
+	color: $brand-color-alt;
+}
+
+// Button Modifier (Primary)
+.xt-button-primary {
+	background: $accent-color;
+	color: #fff;
+}
+
+.xt-button-primary:hover {
+	background: $accent-color-alt;
+	color: #fff;
+}
+
+// Button Modifier (Size)
+.xt-button-small {
+	padding: 10px 12px;
+}
+
+.xt-button-large {
+	padding: 18px 20px;
+}
+
+.xt-button-full {
+	display: block;
+}
+
+/* Form */
+input[type="checkbox"],
+input[type="radio"] {
+	cursor: pointer;
+}
+
+textarea,
+select,
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="number"],
+input[type="datetime"] {
+	-webkit-appearance: none;
+	width: 100%;
+	background: #fff;
+	border: 1px solid $base-color;
+	padding: 13px 15px;
+	outline: none;
+	line-height: 1;
+}
+
+// Placeholder
+form :-ms-input-placeholder {color: $brand-color; opacity: .5;}
+form ::-ms-input-placeholder {color: $brand-color; opacity: .5;}
+form ::placeholder {color: $brand-color; opacity: .5;}
+form [placeholder]:focus:-ms-input-placeholder {color: $brand-color; opacity: .7;}
+form [placeholder]:focus::-ms-input-placeholder {color: $brand-color; opacity: .7;}
+form [placeholder]:focus::placeholder {color: $brand-color; opacity: .7;}
+
+// Select
+select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+select:-moz-focusring {
+	color: transparent;
+	text-shadow: 0 0 0 #000;
+}
+
+select::-ms-expand {
+	display: none;
+}
+
+select {
+	background-image: url(img/arrow-down.png);
+	background-position: right 20px center;
+	background-repeat: no-repeat;
+	background-size: 10px auto;
+}
+
+/* Notices */
+.xt-notice {
+	background: $base-color-alt;
+	border: 2px solid $base-color;
+	padding: 5px $padding-small;
+	border-radius: 4px;
+	margin-bottom: $margin;
+}
+
+.xt-notice-warning {
+	background: rgba($yellow,.15);
+	border-color: $yellow;
+	color: $yellow;
+}
+
+.xt-notice-error {
+	background: rgba(tomato,.15);
+	border-color: tomato;
+	color: tomato;
+}
+
+.xt-notice-success {
+	background: rgba($secondary-color,.15);
+	border-color: $secondary-color;
+	color: $secondary-color;
+}
+
+/* Table */
+table,
+.xt-table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+	border: 1px solid $base-color;
+	margin-bottom: $margin;
+}
+
+table th,
+table td,
+.xt-table th,
+.xt-table td {
+	padding: 8px;
+	border: 1px solid $base-color;
+}
+
+// Alignments
+table th,
+.xt-table th {
+	text-align: left;
+	background: $base-color-alt;
+}
+
+table thead th,
+.xt-table thead th {
+	vertical-align: bottom;
+}
+
+// Table Modifier (Striped)
+.xt-table-striped tr:nth-of-type(odd) {
+	background: $base-color-alt;
+}
+
+// Table Modifier (Small)
+.xt-table-small th,
+.xt-table-small td {
+	padding: 4px 8px;
+}
+
+// Table Modifier (Large)
+.xt-table-large th,
+.xt-table-large td {
+	padding: 15px;
+}
+
+// Table Modifier (Hover)
+.xt-table-hover tbody tr {
+	@include transition(background-color 0.2s);
+}
+
+.xt-table-hover tbody tr:hover {
+	background: $base-color-alt;
+}
+
+/* Grid */
+
+// Basic Gutter
+.xt-grid {
+	margin-left: (-$grid);
+	@include flex();
+	flex-wrap: wrap;
+}
+.xt-grid > * {
+	width: 100%;
+	padding-left: $grid;
+}
+
+.xt-grid > .xt-grid {
+	margin-left: 0;
+	padding-left: 0;
+}
+
+.xt-grid + .xt-grid {
+	margin-top: $grid;
+}
+
+// xLarge Gutter
+.xt-grid-xlarge {
+	margin-left: (-$grid-xlarge);
+}
+.xt-grid-xlarge > * {
+	padding-left: $grid-xlarge;
+}
+
+.xt-grid-xlarge + .xt-grid-xlarge {
+	margin-top: $grid-xlarge;
+}
+
+// Large Gutter
+.xt-grid-large {
+	margin-left: (-$grid-large);
+}
+.xt-grid-large > * {
+	padding-left: $grid-large;
+}
+
+.xt-grid-large + .xt-grid-large {
+	margin-top: $grid-large;
+}
+
+// Medium Gutter
+.xt-grid-medium {
+	margin-left: (-$grid-medium);
+}
+.xt-grid-medium > * {
+	padding-left: $grid-medium;
+}
+
+.xt-grid-medium + .xt-grid-medium {
+	margin-top: $grid-medium;
+}
+
+// Small Gutter
+.xt-grid-small {
+	margin-left: (-$grid-small);
+}
+.xt-grid-small > * {
+	padding-left: $grid-small;
+}
+
+.xt-grid-small + .xt-grid-small {
+	margin-top: $grid-small;
+}
+
+// Collapse Gutter
+.xt-grid-collapse {
+	margin-left: 0;
+}
+.xt-grid-collapse > * {
+	padding-left: 0;
+}
+
+.xt-grid-collapse + .xt-grid-collapse,
+.xt-grid-collapse > * {
+	margin-top: 0;
+}
+
+// Grid Modifier (Divider Gutter)
+.xt-grid-divider:not(:empty) {
+	margin-left: -$divider;
+	margin-right: -$divider;
+}
+
+.xt-grid-divider > * {
+	padding-left: $divider;
+	padding-right: $divider;
+}
+
+.xt-grid-divider > [class*='xt-1-']:not(.xt-1-1):nth-child(n+2),
+.xt-grid-divider > [class*='xt-2-']:nth-child(n+2),
+.xt-grid-divider > [class*='xt-3-']:nth-child(n+2),
+.xt-grid-divider > [class*='xt-4-']:nth-child(n+2),
+.xt-grid-divider > [class*='xt-5-']:nth-child(n+2),
+.xt-grid-divider > [class*='xt-6-']:nth-child(n+2),
+.xt-grid-divider > [class*='xt-7-']:nth-child(n+2),
+.xt-grid-divider > [class*='xt-8-']:nth-child(n+2),
+.xt-grid-divider > [class*='xt-9-']:nth-child(n+2) {
+	border-left: 1px solid $base-color;
+}
+
+/* Grid Cells */
+.xt-grid > * {
+	float: left;
+}
+
+.xt-grid-1-1 > * {
+	width: 100%;
+}
+.xt-grid-1-2 > * {
+	width: 50%;
+}
+.xt-grid-1-3 > * {
+	width: 33.333%;
+}
+.xt-grid-1-4 > * {
+	width: 25% !important;
+}
+.xt-grid-1-5 > * {
+	width: 20%;
+}
+.xt-grid-1-6 > * {
+	width: 16.666%;
+}
+.xt-grid-1-10 > * {
+	width: 10%;
+}
+
+// Whole
+.xt-1-1 {
+	width: 100%;
+}
+
+// Halves
+.xt-1-2,
+.xt-2-4,
+.xt-3-6,
+.xt-5-10 {
+	width: 50%;
+}
+
+// Thirds
+.xt-1-3,
+.xt-2-6 {
+	width: 33.333%;
+}
+.xt-2-3,
+.xt-4-6 {
+	width: 66.666%;
+}
+
+// Quarters
+.xt-1-4 {
+	width: 25%;
+}
+.xt-3-4 {
+	width: 75%;
+}
+
+// Fifths
+.xt-1-5,
+.xt-2-10 {
+	width: 20%;
+}
+.xt-2-5,
+.xt-4-10 {
+	width: 40%;
+}
+.xt-3-5,
+.xt-6-10 {
+	width: 60%;
+}
+.xt-4-5,
+.xt-8-10 {
+	width: 80%;
+}
+
+// Sixths
+.xt-1-6 {
+	width: 16.666%;
+}
+.xt-5-6 {
+	width: 83.333%;
+}
+
+// Tenths
+.xt-1-10 {
+	width: 10%;
+}
+.xt-3-10 {
+	width: 30%;
+}
+.xt-7-10 {
+	width: 70%;
+}
+.xt-9-10 {
+	width: 90%;
+}
+
+// Grid Clearfix
+.xt-grid:before,
+.xt-grid:after {
+	content: "";
+	display: block;
+	overflow: hidden;
+}
+.xt-grid:after {
+	clear: both;
+}
+
+/* Text Modifier */
+.xt-text-left {
+	text-align: left;
+}
+.xt-text-right {
+	text-align: right;
+}
+.xt-text-center {
+	text-align: center;
+}
+.xt-text-justify {
+	text-align: justify;
+}
+
+.xt-uppercase,
+.xt-text-uppercase {
+	text-transform: uppercase;
+}
+
+.xt-inline-block {
+	display: inline-block;
+}
+
+/* Utility */
+
+// Reset Line-Height
+.xt-reset-line-height {
+	line-height: 0;
+}
+
+// Image
+.xt-image,
+.xt-img {
+	width: 100%;
+	height: auto;
+}
+
+// Visibility
+.xt-hidden {
+	display: none;
+}
+
+/* Margins */
+
+// Xl Margins
+.xt-margin-xlarge {
+	margin-top: $margin-xlarge;
+	margin-bottom: $margin-xlarge;
+}
+.xt-margin-xlarge-top {
+	margin-top: $margin-xlarge;
+}
+.xt-margin-xlarge-bottom {
+	margin-bottom: $margin-xlarge;
+}
+.xt-margin-xlarge-left {
+	margin-left: $margin-xlarge;
+}
+.xt-margin-xlarge-right {
+	margin-right: $margin-xlarge;
+}
+
+// Large Margins
+.xt-margin-large {
+	margin-top: $margin-large;
+	margin-bottom: $margin-large;
+}
+.xt-margin-large-top {
+	margin-top: $margin-large;
+}
+.xt-margin-large-bottom {
+	margin-bottom: $margin-large;
+}
+.xt-margin-large-left {
+	margin-left: $margin-large;
+}
+.xt-margin-large-right {
+	margin-right: $margin-large;
+}
+
+// Medium Margins
+.xt-margin-medium {
+	margin-top: $margin-medium;
+	margin-bottom: $margin-medium;
+}
+.xt-margin-medium-top {
+	margin-top: $margin-medium;
+}
+.xt-margin-medium-bottom {
+	margin-bottom: $margin-medium;
+}
+.xt-margin-medium-left {
+	margin-left: $margin-medium;
+}
+.xt-margin-medium-right {
+	margin-right: $margin-medium;
+}
+
+// Regular Margins
+.xt-margin {
+	margin-top: $margin;
+	margin-bottom: $margin;
+}
+.xt-margin-top {
+	margin-top: $margin;
+}
+.xt-margin-bottom {
+	margin-bottom: $margin;
+}
+.xt-margin-left {
+	margin-left: $margin;
+}
+.xt-margin-right {
+	margin-right: $margin;
+}
+
+// Small Margins
+.xt-margin-small {
+	margin-top: $margin-small;
+	margin-bottom: $margin-small;
+}
+.xt-margin-small-top {
+	margin-top: $margin-small;
+}
+.xt-margin-small-bottom {
+	margin-bottom: $margin-small;
+}
+.xt-margin-small-left {
+	margin-left: $margin-small;
+}
+.xt-margin-small-right {
+	margin-right: $margin-small;
+}
+
+// Remove Margins
+.xt-margin-none,
+.xt-remove-margin {
+	margin: 0 !important;
+}
+.xt-margin-top-none {
+	margin-top: 0 !important;
+}
+.xt-margin-bottom-none {
+	margin-bottom: 0 !important;
+}
+
+/* Paddings */
+
+// Xl Paddings
+.xt-padding-xlarge {
+	padding-top: $padding-xlarge;
+	padding-bottom: $padding-xlarge;
+}
+.xt-padding-xlarge-top {
+	padding-top: $padding-xlarge;
+}
+.xt-padding-xlarge-bottom {
+	padding-bottom: $padding-xlarge;
+}
+.xt-padding-xlarge-left {
+	padding-left: $padding-xlarge;
+}
+.xt-padding-xlarge-right {
+	padding-right: $padding-xlarge;
+}
+
+// Large Paddings
+.xt-padding-large {
+	padding-top: $padding-large;
+	padding-bottom: $padding-large;
+}
+.xt-padding-large-top {
+	padding-top: $padding-large;
+}
+.xt-padding-large-bottom {
+	padding-bottom: $padding-large;
+}
+.xt-padding-large-left {
+	padding-left: $padding-large;
+}
+.xt-padding-large-right {
+	padding-right: $padding-large;
+}
+
+// Medium Paddings
+.xt-padding-medium {
+	padding-top: $padding-medium;
+	padding-bottom: $padding-medium;
+}
+.xt-padding-medium-top {
+	padding-top: $padding-medium;
+}
+.xt-padding-medium-bottom {
+	padding-bottom: $padding-medium;
+}
+.xt-padding-medium-left {
+	padding-left: $padding-medium;
+}
+.xt-padding-medium-right {
+	padding-right: $padding-medium;
+}
+
+// Regular Paddings
+.xt-padding {
+	padding-top: $padding;
+	padding-bottom: $padding;
+}
+.xt-padding-top {
+	padding-top: $padding;
+}
+.xt-padding-bottom {
+	padding-bottom: $padding;
+}
+.xt-padding-left {
+	padding-left: $padding;
+}
+.xt-padding-right {
+	padding-right: $padding;
+}
+
+// Small Paddings
+.xt-padding-small {
+	padding-top: $padding-small;
+	padding-bottom: $padding-small;
+}
+.xt-padding-small-top {
+	padding-top: $padding-small;
+}
+.xt-padding-small-bottom {
+	padding-bottom: $padding-small;
+}
+.xt-padding-small-left {
+	padding-left: $padding-small;
+}
+.xt-padding-small-right {
+	padding-right: $padding-small;
+}
+
+// Remove Paddings
+.xt-padding-none,
+.xt-remove-padding {
+	padding: 0 !important;
+}
+.xt-padding-top-none {
+	padding-top: 0 !important;
+}
+.xt-padding-bottom-none {
+	padding-bottom: 0 !important;
+}

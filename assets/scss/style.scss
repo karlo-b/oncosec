@@ -1,0 +1,33 @@
+/*!
+Theme Name: 	XT Framework
+Theme URI:		https://xstreamthemes.com/
+Author: 		XstreamThemes
+Author URI: 	https://xstreamthemes.com/
+Description: 	XT Framework is a super fast, lightweight and highly customizible WordPress theme made
+Version: 		2.0.8.2
+License:		GNU General Public License v3 or later
+License URI:	https://www.gnu.org/licenses/gpl-3.0.html
+Tags: 			one-column, two-columns, left-sidebar, right-sidebar, custom-colors, custom-menu, featured-images, full-width-template, custom-logo, custom-background, threaded-comments, translation-ready, blog, news, e-commerce, rtl-language-support, theme-options, block-styles, wide-blocks
+Text Domain:	xt-framework
+*/
+
+// Normalize
+@import "config/normalize";
+
+// Config
+@import "config/config";
+
+// CSS Framework
+@import "base/framework";
+
+// Typography
+@import "base/typography";
+
+// Defaults
+@import "base/defaults";
+
+// Navigation
+@import "base/navigation";
+
+// Content
+@import "modules/content";

@@ -8,20 +8,26 @@
  */
 
 // exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * strpos array helper function
  */
 function xt_strposa( $haystack, $needles, $offset = 0 ) {
 
-    if( !is_array( $needles ) ) $needles = array( $needles );
+	if ( ! is_array( $needles ) ) {
+		$needles = array( $needles );
+	}
 
-    foreach( $needles as $needle ) {
-        if( strpos( $haystack, $needle, $offset ) !== false ) return true; // stop on first true result
-    }
+	foreach ( $needles as $needle ) {
+		if ( strpos( $haystack, $needle, $offset ) !== false ) {
+			return true; // stop on first true result
+		}
+	}
 
-    return false;
+	return false;
 
 }
 
@@ -32,7 +38,7 @@ function xt_pingback_header() {
 
 	// add Pingback header if we're on a singular & pings are open
 	if ( is_singular() && pings_open() ) {
-		echo '<link rel="pingback" href="'. esc_url( get_bloginfo( 'pingback_url' ) ) .'">';
+		echo '<link rel="pingback" href="' . esc_url( get_bloginfo( 'pingback_url' ) ) . '">';
 	}
 
 }
@@ -59,7 +65,7 @@ function xt_body_schema_markup() {
 	$result = apply_filters( 'xt_body_itemtype', $itemtype );
 
 	// Output
-	echo 'itemscope="itemscope" itemtype="https://schema.org/'. esc_html( $result ) . '"'; // WPCS: XSS ok.
+	echo 'itemscope="itemscope" itemtype="https://schema.org/' . esc_html( $result ) . '"'; // WPCS: XSS ok.
 
 }
 
@@ -68,7 +74,7 @@ function xt_body_schema_markup() {
  */
 function xt_inner_content( $echo = true ) {
 
-	if( is_singular() ) {
+	if ( is_singular() ) {
 
 		// vars
 		$options = get_post_meta( get_the_ID(), 'xt_options', true );
@@ -83,11 +89,11 @@ function xt_inner_content( $echo = true ) {
 
 		// construct inner-content wrapper
 		// return false if template is set to full-width
-		$inner_content = $fullwidth ? false : apply_filters( 'xt_inner_content', '<div id="inner-content" class="xt-container xt-container-center">' );
+		$inner_content = $fullwidth ? false : apply_filters( 'xt_inner_content', '<div id="inner-content" class="xt-container xt-container-center xt-padding-medium">' );
 
 		// check if Premium Add-On is active
 		// only proceed if template is not set to contained
-		if( xt_is_premium() && !$contained ) {
+		if ( xt_is_premium() && ! $contained ) {
 
 			// vars
 			$xt_settings = get_option( 'xt_settings' );
@@ -100,14 +106,14 @@ function xt_inner_content( $echo = true ) {
 
 		}
 
-	// on archives, we only add the xt_inner_content filter
+		// on archives, we only add the xt_inner_content filter
 	} else {
 
 		$inner_content = apply_filters( 'xt_inner_content', '<div id="inner-content" class="xt-container xt-container-center xt-padding-medium">' );
 
 	}
 
-	if( $echo ) {
+	if ( $echo ) {
 
 		echo $inner_content; // WPCS: XSS ok.
 
@@ -124,7 +130,7 @@ function xt_inner_content( $echo = true ) {
  */
 function xt_inner_content_close() {
 
-	if( is_singular() ) {
+	if ( is_singular() ) {
 
 		$options = get_post_meta( get_the_ID(), 'xt_options', true );
 
@@ -134,7 +140,7 @@ function xt_inner_content_close() {
 
 		$inner_content_close = $fullwidth ? false : '</div>';
 
-		if( xt_is_premium() && !$contained ) {
+		if ( xt_is_premium() && ! $contained ) {
 
 			$xt_settings = get_option( 'xt_settings' );
 
@@ -143,7 +149,6 @@ function xt_inner_content_close() {
 			$fullwidth_global && in_array( get_post_type(), $fullwidth_global ) ? $inner_content_close = false : '';
 
 		}
-
 	} else {
 
 		$inner_content_close = '</div>';
@@ -163,7 +168,7 @@ function xt_title() {
 
 	$removetitle = $options ? in_array( 'remove-title', $options ) : false;
 
-	$title = $removetitle ? false : '<h1 class="entry-title" itemprop="headline">'. get_the_title() .'</h1>';
+	$title = $removetitle ? false : '<h1 class="entry-title" itemprop="headline">' . get_the_title() . '</h1>';
 
 	if ( xt_is_premium() ) {
 
@@ -175,7 +180,7 @@ function xt_title() {
 
 	}
 
-	if( $title ) {
+	if ( $title ) {
 
 		do_action( 'xt_before_page_title' );
 
@@ -193,7 +198,9 @@ function xt_title() {
 function xt_remove_header() {
 
 	// stop here if we're on archives
-	if( !is_singular() ) return;
+	if ( ! is_singular() ) {
+		return;
+	}
 
 	// vars
 	$options = get_post_meta( get_the_ID(), 'xt_options', true );
@@ -203,7 +210,7 @@ function xt_remove_header() {
 	$remove_header = $options ? in_array( 'remove-header', $options ) : false;
 
 	// remove header if disable header is checked
-	if( $remove_header ) {
+	if ( $remove_header ) {
 		remove_action( 'xt_header', 'xt_do_header' );
 	}
 
@@ -216,7 +223,9 @@ add_action( 'wp', 'xt_remove_header' );
 function xt_remove_footer() {
 
 	// stop here if we're on archives
-	if( !is_singular() ) return;
+	if ( ! is_singular() ) {
+		return;
+	}
 
 	// vars
 	$options = get_post_meta( get_the_ID(), 'xt_options', true );
@@ -227,7 +236,7 @@ function xt_remove_footer() {
 
 	// remove footer if disable footer is checked
 	// also remove custom footer that has been added in the customizer
-	if( $remove_footer ) {
+	if ( $remove_footer ) {
 		remove_action( 'xt_footer', 'xt_do_footer' );
 		remove_action( 'xt_before_footer', 'xt_custom_footer' );
 	}
@@ -243,8 +252,8 @@ function xt_scrolltop() {
 	if ( get_theme_mod( 'layout_scrolltop' ) ) {
 
 		$scrollTop = get_theme_mod( 'scrolltop_value', 400 );
-		echo '<a class="scrolltop" href="javascript:void(0)" data-scrolltop-value="'. (int) $scrollTop .'">';
-		echo '<span class="screen-reader-text">'. __( 'Scroll to Top', 'xt-framework' ) .'</span>';
+		echo '<a class="scrolltop" href="javascript:void(0)" data-scrolltop-value="' . (int) $scrollTop . '">';
+		echo '<span class="screen-reader-text">' . __( 'Scroll to Top', 'xt-framework' ) . '</span>';
 		echo '</a>';
 
 	}
@@ -268,36 +277,40 @@ function xt_archive_class() {
 
 	$archive_class = '';
 
-	if( is_date() ) {
+	if ( is_date() ) {
 		$archive_class = ' xt-archive-content xt-post-archive xt-date-content';
-	} elseif( is_category() ) {
+	} elseif ( is_category() ) {
 		$archive_class = ' xt-archive-content xt-post-archive xt-category-content';
-	} elseif( is_tag() ) {
+	} elseif ( is_tag() ) {
 		$archive_class = ' xt-archive-content xt-post-archive xt-tag-content';
-	} elseif( is_author() ) {
+	} elseif ( is_author() ) {
 		$archive_class = ' xt-archive-content xt-post-archive xt-author-content';
-	} elseif( is_home() ) {
+	} elseif ( is_home() ) {
 		$archive_class = ' xt-archive-content xt-post-archive xt-blog-content';
-	} elseif( is_search() ) {
+	} elseif ( is_search() ) {
 		$archive_class = ' xt-archive-content xt-post-archive xt-search-content';
-	} elseif( is_post_type_archive() ) {
+	} elseif ( is_post_type_archive() ) {
 
 		$post_type = get_post_type();
-		if( !$post_type ) return $archive_class; // stop here if no post has been found
+		if ( ! $post_type ) {
+			return $archive_class; // stop here if no post has been found
+		}
 
-		$archive_class = ' xt-archive-content';
-		$archive_class .= ' xt-'. $post_type .'-archive';
-		$archive_class .= ' xt-'. $post_type .'-archive-content';
+		$archive_class  = ' xt-archive-content';
+		$archive_class .= ' xt-' . $post_type . '-archive';
+		$archive_class .= ' xt-' . $post_type . '-archive-content';
 
-	} elseif( is_tax() ) {
+	} elseif ( is_tax() ) {
 
 		$post_type = get_post_type();
-		if( !$post_type ) return $archive_class; // stop here if no post has been found
+		if ( ! $post_type ) {
+			return $archive_class; // stop here if no post has been found
+		}
 
-		$archive_class = ' xt-archive-content';
-		$archive_class .= ' xt-'. $post_type .'-archive';
-		$archive_class .= ' xt-'. $post_type .'-archive-content';
-		$archive_class .= ' xt-'. $post_type .'-taxonomy-content';
+		$archive_class  = ' xt-archive-content';
+		$archive_class .= ' xt-' . $post_type . '-archive';
+		$archive_class .= ' xt-' . $post_type . '-archive-content';
+		$archive_class .= ' xt-' . $post_type . '-taxonomy-content';
 
 	}
 
@@ -310,17 +323,17 @@ function xt_archive_class() {
  */
 function xt_singular_class() {
 
-	if( is_singular( 'post' ) ) {
+	if ( is_singular( 'post' ) ) {
 		$singular_class = ' xt-single-content';
-	} elseif( is_attachment() ) {
+	} elseif ( is_attachment() ) {
 		$singular_class = ' xt-attachment-content';
-	} elseif( is_page() ) {
+	} elseif ( is_page() ) {
 		$singular_class = ' xt-page-content';
-	} elseif( is_404() ) {
+	} elseif ( is_404() ) {
 		$singular_class = ' xt-404-content';
 	} else {
-		$post_type = get_post_type();
-		$singular_class = ' xt-'. $post_type .'-content';
+		$post_type      = get_post_type();
+		$singular_class = ' xt-' . $post_type . '-content';
 	}
 
 	return apply_filters( 'xt_singular_class', $singular_class );
@@ -332,7 +345,7 @@ function xt_singular_class() {
  */
 function xt_archive_header() {
 
-	if( is_author() ) { ?>
+	if ( is_author() ) { ?>
 
 		<section class="xt-author-box">
 			<h1 class="page-title"><span class="vcard"><?php echo get_the_author(); ?></span></h1>
@@ -340,9 +353,10 @@ function xt_archive_header() {
 			<?php echo get_avatar( get_the_author_meta( 'email' ), 120 ); ?>
 		</section>
 
-	<?php } else {
+		<?php
+	} else {
 
-		if( get_the_archive_title() ) {
+		if ( get_the_archive_title() ) {
 
 			do_action( 'xt_before_page_title' );
 
@@ -363,52 +377,51 @@ function xt_archive_header() {
  */
 function xt_archive_title( $title ) {
 
-	$archive_headline  = get_theme_mod( 'archive_headline' );
+	$archive_headline = get_theme_mod( 'archive_headline' );
 
-	if( is_category() ) {
+	if ( is_category() ) {
 
-		if( $archive_headline == 'hide_prefix' ) {
+		if ( $archive_headline == 'hide_prefix' ) {
 			$title = single_cat_title( '', false );
-		} elseif( $archive_headline == 'hide' ) {
+		} elseif ( $archive_headline == 'hide' ) {
 			$title = false;
 		}
+	} elseif ( is_tag() ) {
 
-	} elseif( is_tag() ) {
-
-		if( $archive_headline == 'hide_prefix' ) {
+		if ( $archive_headline == 'hide_prefix' ) {
 			$title = single_tag_title( '', false );
-		} elseif( $archive_headline == 'hide' ) {
+		} elseif ( $archive_headline == 'hide' ) {
 			$title = false;
 		}
-
-	} elseif( is_date() ) {
+	} elseif ( is_date() ) {
 
 		$date = get_the_date( 'F Y' );
-		if( is_year() ) $date = get_the_date( 'Y' );
-		if( is_day() ) $date = get_the_date( 'F j, Y' );
+		if ( is_year() ) {
+			$date = get_the_date( 'Y' );
+		}
+		if ( is_day() ) {
+			$date = get_the_date( 'F j, Y' );
+		}
 
-		if( $archive_headline == 'hide_prefix' ) {
+		if ( $archive_headline == 'hide_prefix' ) {
 			$title = $date;
-		} elseif( $archive_headline == 'hide' ) {
+		} elseif ( $archive_headline == 'hide' ) {
 			$title = false;
 		}
+	} elseif ( is_post_type_archive() ) {
 
-	} elseif( is_post_type_archive() ) {
-
-		if( $archive_headline == 'hide_prefix' ) {
+		if ( $archive_headline == 'hide_prefix' ) {
 			$title = post_type_archive_title( '', false );
-		} elseif( $archive_headline == 'hide' ) {
+		} elseif ( $archive_headline == 'hide' ) {
 			$title = false;
 		}
+	} elseif ( is_tax() ) {
 
-	} elseif( is_tax() ) {
-
-		if( $archive_headline == 'hide_prefix' ) {
+		if ( $archive_headline == 'hide_prefix' ) {
 			$title = single_term_title( '', false );
-		} elseif( $archive_headline == 'hide' ) {
+		} elseif ( $archive_headline == 'hide' ) {
 			$title = false;
 		}
-
 	}
 
 	return $title;
@@ -421,25 +434,26 @@ add_filter( 'get_the_archive_title', 'xt_archive_title', 10 );
  *
  * Simple check if Responsive Breakpoints are set
  */
-if( !function_exists( 'xt_has_responsive_breakpoints' ) ) {
+if ( ! function_exists( 'xt_has_responsive_breakpoints' ) ) {
 
 	function xt_has_responsive_breakpoints() {
 
 		// there can't be Responsive Breakpoints if there's no Premium Add-On
-		if( !xt_is_premium() ) return false;
+		if ( ! xt_is_premium() ) {
+			return false;
+		}
 
 		// vars
 		$xt_settings = get_option( 'xt_settings' );
 
 		// check if custom breakpoints are set, otherwise return false
-		if ( !empty( $xt_settings['xt_breakpoint_medium'] ) || !empty( $xt_settings['xt_breakpoint_desktop'] ) || !empty( $xt_settings['xt_breakpoint_mobile'] ) ) {
+		if ( ! empty( $xt_settings['xt_breakpoint_medium'] ) || ! empty( $xt_settings['xt_breakpoint_desktop'] ) || ! empty( $xt_settings['xt_breakpoint_mobile'] ) ) {
 			return true;
 		} else {
 			return false;
 		}
 
 	}
-
 }
 
 /**
@@ -447,7 +461,9 @@ if( !function_exists( 'xt_has_responsive_breakpoints' ) ) {
  */
 function xt_do_sidebar_right() {
 
-	if( xt_sidebar_layout() == 'right' ) get_sidebar();
+	if ( xt_sidebar_layout() == 'right' ) {
+		get_sidebar();
+	}
 
 }
 add_action( 'xt_sidebar_right', 'xt_do_sidebar_right' );
@@ -457,7 +473,9 @@ add_action( 'xt_sidebar_right', 'xt_do_sidebar_right' );
  */
 function xt_do_sidebar_left() {
 
-	if( xt_sidebar_layout() == 'left' ) get_sidebar();
+	if ( xt_sidebar_layout() == 'left' ) {
+		get_sidebar();
+	}
 
 }
 add_action( 'xt_sidebar_left', 'xt_do_sidebar_left' );
@@ -471,9 +489,9 @@ function xt_sidebar_layout() {
 	$sidebar = get_theme_mod( 'sidebar_position', 'right' );
 
 	$archive_sidebar_position = get_theme_mod( 'archive_sidebar_layout', 'global' );
-	$sidebar = $archive_sidebar_position !== 'global' ? $archive_sidebar_position : $sidebar;
+	$sidebar                  = $archive_sidebar_position !== 'global' ? $archive_sidebar_position : $sidebar;
 
-	if( is_singular() ) {
+	if ( is_singular() ) {
 
 		$id                             = get_the_ID();
 		$single_sidebar_position        = get_post_meta( $id, 'xt_sidebar_position', true );
@@ -497,7 +515,7 @@ function xt_article_meta() {
 
 	$blog_meta = get_theme_mod( 'blog_sortable_meta', array( 'author', 'date' ) );
 
-	if ( is_array( $blog_meta ) && !empty( $blog_meta ) ) {
+	if ( is_array( $blog_meta ) && ! empty( $blog_meta ) ) {
 
 		do_action( 'xt_before_article_meta' );
 		echo '<p class="article-meta">';
@@ -542,21 +560,22 @@ function xt_author_meta() {
 	$rtl    = is_rtl();
 	$avatar = get_theme_mod( 'blog_author_avatar' );
 
-	if( !$rtl && $avatar ) {
+	if ( ! $rtl && $avatar ) {
 		echo get_avatar( get_the_author_meta( 'ID' ), 128 );
 	}
 
-	echo sprintf( '<span class="article-author author vcard" itemscope="itemscope" itemprop="author" itemtype="https://schema.org/Person"><a class="url fn" href="%1$s" title="%2$s" rel="author" itemprop="url"><span itemprop="name">%3$s</span></a></span>', // WPCS: XSS ok, sanitization ok.
+	echo sprintf(
+		'<span class="article-author author vcard" itemscope="itemscope" itemprop="author" itemtype="https://schema.org/Person"><a class="url fn" href="%1$s" title="%2$s" rel="author" itemprop="url"><span itemprop="name">%3$s</span></a></span>', // WPCS: XSS ok, sanitization ok.
 		esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
 		esc_attr( sprintf( __( 'View all posts by %s', 'xt-framework' ), get_the_author() ) ),
 		esc_html( get_the_author() )
 	);
 
-	if( $rtl && $avatar ) {
+	if ( $rtl && $avatar ) {
 		echo get_avatar( get_the_author_meta( 'ID' ), 128 );
 	}
 
-	echo '<span class="article-meta-separator">'. apply_filters( 'xt_article_meta_separator', ' | ' ) .'</span>';
+	echo '<span class="article-meta-separator">' . apply_filters( 'xt_article_meta_separator', ' | ' ) . '</span>';
 
 }
 
@@ -565,8 +584,8 @@ function xt_author_meta() {
  */
 function xt_date_meta() {
 
-	echo '<span class="posted-on">'. __( 'Posted on', 'xt-framework' ) .'</span> <time class="article-time published" datetime="'. get_the_date( 'c' ) .'" itemprop="datePublished">'. get_the_date() .'</time>'; // WPCS: XSS ok.
-	echo '<span class="article-meta-separator">'. apply_filters( 'xt_article_meta_separator', ' | ' ) .'</span>';
+	echo '<span class="posted-on">' . __( 'Posted on', 'xt-framework' ) . '</span> <time class="article-time published" datetime="' . get_the_date( 'c' ) . '" itemprop="datePublished">' . get_the_date() . '</time>'; // WPCS: XSS ok.
+	echo '<span class="article-meta-separator">' . apply_filters( 'xt_article_meta_separator', ' | ' ) . '</span>';
 
 }
 
@@ -581,7 +600,7 @@ function xt_comments_meta() {
 
 	echo '</span>';
 
-	echo '<span class="article-meta-separator">'. apply_filters( 'xt_article_meta_separator', ' | ' ) .'</span>';
+	echo '<span class="article-meta-separator">' . apply_filters( 'xt_article_meta_separator', ' | ' ) . '</span>';
 
 }
 
@@ -596,11 +615,19 @@ function xt_blog_layout() {
 	$style                 = get_theme_mod( 'archive_post_style', 'plain' );
 	$stretched             = get_theme_mod( 'archive_boxed_image_streched', false );
 
-	if( $blog_layout !== 'beside' && $style == 'boxed' && $stretched ) {
-		$style             .= ' stretched';
+	if ( $blog_layout !== 'beside' && $style == 'boxed' && $stretched ) {
+		$style .= ' stretched';
 	}
 
-	return apply_filters( 'xt_blog_layout', array( 'blog_layout' => $blog_layout, 'template_parts_header' => $template_parts_header, 'template_parts_footer' => $template_parts_footer, 'style' => $style ) );
+	return apply_filters(
+		'xt_blog_layout',
+		array(
+			'blog_layout'           => $blog_layout,
+			'template_parts_header' => $template_parts_header,
+			'template_parts_footer' => $template_parts_footer,
+			'style'                 => $style,
+		)
+	);
 
 }
 
@@ -613,39 +640,45 @@ function xt_nav_menu() {
 
 	$custom_menu = get_theme_mod( 'menu_custom' );
 
-	if( $custom_menu ) {
+	if ( $custom_menu ) {
 
 		echo do_shortcode( $custom_menu );
 
-	} elseif( in_array( get_theme_mod( 'menu_position' ), array( 'menu-off-canvas', 'menu-off-canvas-left' ) ) ) {
+	} elseif ( in_array( get_theme_mod( 'menu_position' ), array( 'menu-off-canvas', 'menu-off-canvas-left' ) ) ) {
 
-		wp_nav_menu( array(
-			'theme_location'	=> 'main_menu',
-			'container'			=> false,
-			'menu_class'		=> 'xt-menu',
-			'depth'				=> 3,
-			'fallback_cb'		=> 'xt_main_menu_fallback'
-		));
+		wp_nav_menu(
+			array(
+				'theme_location' => 'main_menu',
+				'container'      => false,
+				'menu_class'     => 'xt-menu',
+				'depth'          => 3,
+				'fallback_cb'    => 'xt_main_menu_fallback',
+			)
+		);
 
 	} elseif ( get_theme_mod( 'menu_position' ) == 'menu-full-screen' ) {
 
-		wp_nav_menu( array(
-			'theme_location'	=> 'main_menu',
-			'container'			=> false,
-			'menu_class'		=> 'xt-menu',
-			'depth'				=> 1,
-			'fallback_cb'		=> 'xt_main_menu_fallback'
-		));
+		wp_nav_menu(
+			array(
+				'theme_location' => 'main_menu',
+				'container'      => false,
+				'menu_class'     => 'xt-menu',
+				'depth'          => 1,
+				'fallback_cb'    => 'xt_main_menu_fallback',
+			)
+		);
 
 	} else {
 
-		wp_nav_menu( array(
-			'theme_location'	=> 'main_menu',
-			'container'			=> false,
-			'menu_class'		=> 'xt-menu xt-sub-menu' . xt_sub_menu_alignment() . xt_sub_menu_animation() . xt_menu_hover_effect(),
-			'depth'				=> 4,
-			'fallback_cb'		=> 'xt_main_menu_fallback'
-		));
+		wp_nav_menu(
+			array(
+				'theme_location' => 'main_menu',
+				'container'      => false,
+				'menu_class'     => 'xt-menu xt-sub-menu' . xt_sub_menu_alignment() . xt_sub_menu_animation() . xt_menu_hover_effect(),
+				'depth'          => 4,
+				'fallback_cb'    => 'xt_main_menu_fallback',
+			)
+		);
 
 	}
 }
@@ -676,7 +709,7 @@ function xt_mobile_menu() {
  */
 function xt_is_off_canvas_menu() {
 
-	if( in_array( get_theme_mod( 'menu_position' ), array( 'menu-off-canvas', 'menu-off-canvas-left', 'menu-full-screen' ) ) ) {
+	if ( in_array( get_theme_mod( 'menu_position' ), array( 'menu-off-canvas', 'menu-off-canvas-left', 'menu-full-screen' ) ) ) {
 		return true;
 	} else {
 		return false;
@@ -692,7 +725,7 @@ function xt_mobile_sub_menu_indicators( $item_output, $items, $depth, $args ) {
 	if ( $args->theme_location == 'mobile_menu' || ( in_array( get_theme_mod( 'menu_position' ), array( 'menu-off-canvas', 'menu-off-canvas-left' ) ) && $args->theme_location == 'main_menu' ) ) {
 
 		if ( isset( $items->classes ) && in_array( 'menu-item-has-children', $items->classes ) ) {
-			$item_output .= '<button class="xt-submenu-toggle" aria-expanded="false"><i class="xtf xtf-arrow-down" aria-hidden="true"></i><span class="screen-reader-text">'. __( 'Menu Toggle', 'xt-framework' ) .'</span></button>';
+			$item_output .= '<button class="xt-submenu-toggle" aria-expanded="false"><i class="xtf xtf-arrow-down" aria-hidden="true"></i><span class="screen-reader-text">' . __( 'Menu Toggle', 'xt-framework' ) . '</span></button>';
 		}
 	}
 
@@ -707,7 +740,7 @@ add_filter( 'walker_nav_menu_start_el', 'xt_mobile_sub_menu_indicators', 10, 4 )
 function xt_sub_menu_alignment() {
 
 	$sub_menu_alignment = get_theme_mod( 'sub_menu_alignment', 'left' );
-	$alignment = ' xt-sub-menu-align-' . $sub_menu_alignment;
+	$alignment          = ' xt-sub-menu-align-' . $sub_menu_alignment;
 
 	return $alignment;
 
@@ -748,7 +781,7 @@ function xt_menu_hover_effect() {
 	$menu_effect_animation = get_theme_mod( 'menu_effect_animation', 'fade' );
 	$menu_effect_alignment = get_theme_mod( 'menu_effect_alignment', 'center' );
 
-	$hover_effect = ' xt-menu-effect-' . $menu_effect;
+	$hover_effect  = ' xt-menu-effect-' . $menu_effect;
 	$hover_effect .= ' xt-menu-animation-' . $menu_effect_animation;
 	$hover_effect .= ' xt-menu-align-' . $menu_effect_alignment;
 
@@ -798,14 +831,14 @@ add_filter( 'embed_oembed_html', 'xt_responsive_embed', 10, 3 );
 function xt_sticky_navigation() {
 
 	// vars
-	$menu_sticky					= get_theme_mod( 'menu_sticky' );
-	$menu_active_delay				= get_theme_mod( 'menu_active_delay' );
-	$menu_active_animation			= get_theme_mod( 'menu_active_animation' );
-	$menu_active_animation_duration	= get_theme_mod( 'menu_active_animation_duration' );
+	$menu_sticky                    = get_theme_mod( 'menu_sticky' );
+	$menu_active_delay              = get_theme_mod( 'menu_active_delay' );
+	$menu_active_animation          = get_theme_mod( 'menu_active_animation' );
+	$menu_active_animation_duration = get_theme_mod( 'menu_active_animation_duration' );
 
 	if ( $menu_sticky ) {
 
-		$sticky_navigation = 'data-sticky="true"';
+		$sticky_navigation  = 'data-sticky="true"';
 		$sticky_navigation .= $menu_active_delay ? ' data-sticky-delay="' . esc_attr( $menu_active_delay ) . '"' : ' data-sticky-delay="300px"';
 		$sticky_navigation .= $menu_active_animation ? ' data-sticky-animation="' . esc_attr( $menu_active_animation ) . '"' : false;
 		$sticky_navigation .= $menu_active_animation_duration ? ' data-sticky-animation-duration="' . esc_attr( $menu_active_animation_duration ) . '"' : ' data-sticky-animation-duration="200"';
@@ -828,7 +861,7 @@ function xt_transparent_header() {
 
 	if ( in_array( 'xt-transparent-header', $classes ) ) {
 
-		echo " xt-navigation-transparent";
+		echo ' xt-navigation-transparent';
 
 	}
 
@@ -840,7 +873,7 @@ function xt_transparent_header() {
 function xt_transparent_header_body_class_2083582( $classes ) {
 
 	// don't take it further if we're on archives
-	if( is_singular() ) {
+	if ( is_singular() ) {
 
 		$options = get_post_meta( get_the_ID(), 'xt_premium_options', true );
 
@@ -848,7 +881,7 @@ function xt_transparent_header_body_class_2083582( $classes ) {
 		// return false if $options is empty
 		$transparent_header = $options ? in_array( 'transparent-header', $options ) : false;
 
-		if( $transparent_header ) {
+		if ( $transparent_header ) {
 
 			$classes[] = 'xt-transparent-header';
 
@@ -860,13 +893,12 @@ function xt_transparent_header_body_class_2083582( $classes ) {
 			// get the array of post types that are set to Transparent Header under Appearance -> Theme Settings -> Global Templat Settings
 			$transparent_header_global = isset( $xt_settings['xt_transparent_header_global'] ) ? $xt_settings['xt_transparent_header_global'] : array();
 
-			if( in_array( get_post_type(), $transparent_header_global ) ) {
+			if ( in_array( get_post_type(), $transparent_header_global ) ) {
 				$classes[] = 'xt-transparent-header';
 			}
-
 		}
 
-	// Archives
+		// Archives
 	} else {
 
 		$xt_settings = get_option( 'xt_settings' );
@@ -877,52 +909,62 @@ function xt_transparent_header_body_class_2083582( $classes ) {
 		// remove public post types from array as we've already taken care of them above
 		$transparent_headers_global = array_diff( $transparent_headers_global, get_post_types( array( 'public' => true ) ) );
 
-		if ( !empty( $transparent_headers_global ) ) {
+		if ( ! empty( $transparent_headers_global ) ) {
 
 			foreach ( $transparent_headers_global as $transparent_header_global ) {
 
 				switch ( $transparent_header_global ) {
 
 					case '404':
-						if( is_404() ) $classes[] = 'xt-transparent-header';
+						if ( is_404() ) {
+							$classes[] = 'xt-transparent-header';
+						}
 						break;
 					case 'front_page':
-						if( is_home() ) $classes[] = 'xt-transparent-header';
+						if ( is_home() ) {
+							$classes[] = 'xt-transparent-header';
+						}
 						break;
 					case 'search':
-						if( is_search() ) $classes[] = 'xt-transparent-header';
+						if ( is_search() ) {
+							$classes[] = 'xt-transparent-header';
+						}
 						break;
 					case 'archives':
-						if( is_archive() ) $classes[] = 'xt-transparent-header';
+						if ( is_archive() ) {
+							$classes[] = 'xt-transparent-header';
+						}
 						break;
 					case 'post_archives':
-						if( is_date() || is_category() || is_author() || is_tag() ) $classes[] = 'xt-transparent-header';
+						if ( is_date() || is_category() || is_author() || is_tag() ) {
+							$classes[] = 'xt-transparent-header';
+						}
 						break;
 					default:
 						// Post Type Archives
 						// cut given value to get cpt (example: turns download_archive into download to use it in is_post_type_archive())
 						$transparent_header_global = substr( $transparent_header_global, 0, strpos( $transparent_header_global, '_' ) );
 
-						if( is_post_type_archive( $transparent_header_global ) ) $classes[] = 'xt-transparent-header';
+						if ( is_post_type_archive( $transparent_header_global ) ) {
+							$classes[] = 'xt-transparent-header';
+						}
 
 						// apply to related taxonomies
 						$taxonomies = get_object_taxonomies( $transparent_header_global, 'names' );
 
-						if( !empty( $taxonomies ) ) {
+						if ( ! empty( $taxonomies ) ) {
 
-							foreach( $taxonomies as $taxonomy ) {
-								if( is_tax( $taxonomy ) ) $classes[] = 'xt-transparent-header';
+							foreach ( $taxonomies as $taxonomy ) {
+								if ( is_tax( $taxonomy ) ) {
+									$classes[] = 'xt-transparent-header';
+								}
 							}
-
 						}
 						break;
 
 				}
-
 			}
-
 		}
-
 	}
 
 	return $classes;
@@ -930,11 +972,11 @@ function xt_transparent_header_body_class_2083582( $classes ) {
 }
 add_filter( 'body_class', 'xt_transparent_header_body_class_2083582' );
 
-function cc_mime_types($mimes) {
+function cc_mime_types( $mimes ) {
 	$mimes['svg'] = 'image/svg+xml';
 	return $mimes;
-   }
-   add_filter('upload_mimes', 'cc_mime_types');
+}
+   add_filter( 'upload_mimes', 'cc_mime_types' );
 
 
 /**
@@ -944,7 +986,7 @@ function xt_breakpoint_desktop() {
 
 	$xt_settings = get_option( 'xt_settings' );
 
-	if ( !empty( $xt_settings['xt_breakpoint_desktop'] ) ) {
+	if ( ! empty( $xt_settings['xt_breakpoint_desktop'] ) ) {
 		$desktop_breakpoint = (int) $xt_settings['xt_breakpoint_desktop'];
 	} else {
 		$desktop_breakpoint = 1024;
@@ -961,7 +1003,7 @@ function xt_breakpoint_medium() {
 
 	$xt_settings = get_option( 'xt_settings' );
 
-	if ( !empty( $xt_settings['xt_breakpoint_medium'] ) ) {
+	if ( ! empty( $xt_settings['xt_breakpoint_medium'] ) ) {
 		$medium_breakpoint = (int) $xt_settings['xt_breakpoint_medium'];
 	} else {
 		$medium_breakpoint = 768;
@@ -978,7 +1020,7 @@ function xt_breakpoint_mobile() {
 
 	$xt_settings = get_option( 'xt_settings' );
 
-	if ( !empty( $xt_settings['xt_breakpoint_mobile'] ) ) {
+	if ( ! empty( $xt_settings['xt_breakpoint_mobile'] ) ) {
 		$mobile_breakpoint = (int) $xt_settings['xt_breakpoint_mobile'];
 	} else {
 		$mobile_breakpoint = 480;
@@ -991,18 +1033,18 @@ function xt_breakpoint_mobile() {
 
 function xt_premium_body_classes( $classes ) {
 
-	$push_menu		= get_theme_mod( 'menu_off_canvas_push' );
-	$menu_position	= get_theme_mod( 'menu_position' );
+	$push_menu     = get_theme_mod( 'menu_off_canvas_push' );
+	$menu_position = get_theme_mod( 'menu_position' );
 
-	if( $push_menu && $menu_position == 'menu-off-canvas' ) {
+	if ( $push_menu && $menu_position == 'menu-off-canvas' ) {
 		$classes[] = 'xt-push-menu-right';
 	}
 
-	if( $push_menu && $menu_position == 'menu-off-canvas-left' ) {
+	if ( $push_menu && $menu_position == 'menu-off-canvas-left' ) {
 		$classes[] = 'xt-push-menu-left';
 	}
 
-	if( xt_has_responsive_breakpoints() ) {
+	if ( xt_has_responsive_breakpoints() ) {
 
 		$classes[] = 'xt-responsive-breakpoints';
 
@@ -1023,14 +1065,15 @@ add_filter( 'body_class', 'xt_premium_body_classes' );
  */
 function xt_social() {
 
-	$active_networks	= get_theme_mod( 'social_sortable', array() );
-	$social_shape		= get_theme_mod( 'social_shapes' );
-	$social_style		= get_theme_mod( 'social_styles' );
-	$social_size		= get_theme_mod( 'social_sizes' );
+	$active_networks = get_theme_mod( 'social_sortable', array() );
+	$social_shape    = get_theme_mod( 'social_shapes' );
+	$social_style    = get_theme_mod( 'social_styles' );
+	$social_size     = get_theme_mod( 'social_sizes' );
 
 	ob_start();
 
-	if ( ! empty( $active_networks ) && is_array( $active_networks ) ) : ?>
+	if ( ! empty( $active_networks ) && is_array( $active_networks ) ) :
+		?>
 	<div class="xt-social-icons<?php echo esc_attr( $social_shape . $social_style . $social_size ); ?>">
 		<?php foreach ( $active_networks as $social_network_label ) : ?>
 			<a class="xt-social-icon xt-social-<?php echo esc_attr( $social_network_label ); ?>" target="_blank" href="<?php echo esc_url( get_theme_mod( $social_network_label . '_link', '' ) ); ?>">
@@ -1038,7 +1081,8 @@ function xt_social() {
 			</a>
 		<?php endforeach; ?>
 	</div>
-	<?php endif;
+		<?php
+	endif;
 
 	return ob_get_clean();
 
@@ -1048,23 +1092,23 @@ add_shortcode( 'social', 'xt_social' );
 
 // Limit excerpts
 
-function get_excerpt($limit){
-$excerpt = get_the_content();
-$excerpt = preg_replace(" ([.*?])",'',$excerpt);
-$excerpt = strip_shortcodes($excerpt);
-$excerpt = strip_tags($excerpt);
-$excerpt = substr($excerpt, 0, $limit);
-$excerpt = substr($excerpt, 0, strripos($excerpt, " "));
-$excerpt = trim(preg_replace( '/\s+/', ' ', $excerpt));
-return $excerpt;
+function get_excerpt( $limit ) {
+	$excerpt = get_the_content();
+	$excerpt = preg_replace( ' ([.*?])', '', $excerpt );
+	$excerpt = strip_shortcodes( $excerpt );
+	$excerpt = strip_tags( $excerpt );
+	$excerpt = substr( $excerpt, 0, $limit );
+	$excerpt = substr( $excerpt, 0, strripos( $excerpt, ' ' ) );
+	$excerpt = trim( preg_replace( '/\s+/', ' ', $excerpt ) );
+	return $excerpt;
 }
 
 add_action( 'xt_content_open', 'single_brands_row' );
-function single_brands_row(){
-	if (is_single()){
-		if ( is_active_sidebar( 'single-brands-row' ) ){
+function single_brands_row() {
+	if ( is_single() ) {
+		if ( is_active_sidebar( 'single-brands-row' ) ) {
 			echo '<div class="xt-container-full-width">';
-			dynamic_sidebar('single-brands-row');
+			dynamic_sidebar( 'single-brands-row' );
 			echo '</div>';
 		}
 	}
@@ -1073,112 +1117,67 @@ function single_brands_row(){
 // Add author contact methods
 
 
-function change_contact_info($contactmethods) {
-    unset($contactmethods['aim']);
-    unset($contactmethods['yim']);
-    unset($contactmethods['jabber']);
-    $contactmethods['website_title'] = 'Website Title';
-    $contactmethods['twitter'] = 'Twitter';
-    $contactmethods['facebook'] = 'Facebook';
-    $contactmethods['linkedin'] = 'Linked In';
-    return $contactmethods;
+function change_contact_info( $contactmethods ) {
+	unset( $contactmethods['aim'] );
+	unset( $contactmethods['yim'] );
+	unset( $contactmethods['jabber'] );
+	$contactmethods['website_title'] = 'Website Title';
+	$contactmethods['twitter']       = 'Twitter';
+	$contactmethods['facebook']      = 'Facebook';
+	$contactmethods['linkedin']      = 'Linked In';
+	return $contactmethods;
 }
 
-add_filter('user_contactmethods','change_contact_info',10,1);
-
-add_action( 'xt_article_close', 'single_suthor_box');
-function single_suthor_box(){
-
-$author             = get_the_author();
-$author_description = get_the_author_meta( 'description' );
-$author_url         = esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) );
-$author_avatar      = get_avatar( get_the_author_meta( 'user_email' ), apply_filters( 'wpex_author_bio_avatar_size', 100 ) );
-$facebook = get_the_author_meta('facebook');
-$twitter = get_the_author_meta('twitter');
-$linkedin = get_the_author_meta('linkedin');
-$authsocial ="";
-// Only display if author has a description
-
-if($facebook ){
-	$authsocial .= "<a class=\" user-social author-fb\" href=\"". $facebook . "\" target=\"_blank\" rel=\"nofollow\" title=\"" . get_the_author_meta('display_name') . " on Facebook\"><i class=\"xtf xtf-facebook\"></i></a>";
-}
-if($twitter){
-	$authsocial .= "<a class=\"user-social author-twitter\" href=\"". $twitter . "\" target=\"_blank\" rel=\"nofollow\" title=\"" . get_the_author_meta('display_name') . " on Twitter\"><i class=\"xtf xtf-twitter\"></i></a>";
-}
-if($linkedin){
-	$authsocial .= "<a class=\"user-social author-linkedin\"  href=\"" . $linkedin . "\" target=\"_blank\" rel=\"nofollow\" title=\"" . get_the_author_meta('display_name') . " LinkedIn\"><i class=\"xtf xtf-linkedin\"></i></a>";
-}
-?>
-    <div class="author-info clr">
-        <div class="author-info-inner clr">
-            <?php if ( $author_avatar ) { ?>
-                <div class="author-avatar clr">
-                    <a href="<?php echo esc_url( $author_url ); ?>" rel="author">
-                        <?php echo $author_avatar; ?>
-                    </a>
-                </div><!-- .author-avatar -->
-            <?php } ?>
-            <div class="author-description">
-			<h4 class="heading"><span><?php printf( esc_html__( 'Written by %s', 'text_domain' ), esc_html( $author ) ); ?></span></h4>
-                <p><?php echo wp_kses_post( $author_description ); ?></p>
-                <div class="author-links">
-				<?php echo $authsocial; ?>
-				<a href="<?php echo esc_url( $author_url ); ?>" title="<?php esc_html_e( 'View all author posts', 'text_domain' ); ?>"><?php esc_html_e( 'View all author posts', 'text_domain' ); ?> →</a></div>
-            </div><!-- .author-description -->
-        </div><!-- .author-info-inner -->
-    </div><!-- .author-info -->
-
-<?php
-}
-
+add_filter( 'user_contactmethods', 'change_contact_info', 10, 1 );
 
 // Optimizations
-
-
 // remove unnecessary header info
 add_action( 'init', 'remove_header_info' );
 function remove_header_info() {
-    remove_action( 'wp_head', 'rsd_link' );
-    remove_action( 'wp_head', 'wlwmanifest_link' );
-    remove_action( 'wp_head', 'wp_generator' );
-    remove_action( 'wp_head', 'start_post_rel_link' );
-    remove_action( 'wp_head', 'index_rel_link' );
-    remove_action( 'wp_head', 'adjacent_posts_rel_link' );         // for WordPress < 3.0
-    remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head' ); // for WordPress >= 3.0
+	remove_action( 'wp_head', 'rsd_link' );
+	remove_action( 'wp_head', 'wlwmanifest_link' );
+	remove_action( 'wp_head', 'wp_generator' );
+	remove_action( 'wp_head', 'start_post_rel_link' );
+	remove_action( 'wp_head', 'index_rel_link' );
+	remove_action( 'wp_head', 'adjacent_posts_rel_link' );         // for WordPress < 3.0
+	remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head' ); // for WordPress >= 3.0
 }
 
 // remove extra CSS that 'Recent Comments' widget injects
 add_action( 'widgets_init', 'remove_recent_comments_style' );
 function remove_recent_comments_style() {
-    global $wp_widget_factory;
-    remove_action( 'wp_head', array(
-        $wp_widget_factory->widgets['WP_Widget_Recent_Comments'],
-        'recent_comments_style'
-    ) );
+	global $wp_widget_factory;
+	remove_action(
+		'wp_head',
+		array(
+			$wp_widget_factory->widgets['WP_Widget_Recent_Comments'],
+			'recent_comments_style',
+		)
+	);
 }
 
 // remove dashicons in frontend to non-admin
-    function wpdocs_dequeue_dashicon() {
-        if (current_user_can( 'update_core' )) {
-            return;
-        }
-        wp_deregister_style('dashicons');
-    }
+function wpdocs_dequeue_dashicon() {
+	if ( current_user_can( 'update_core' ) ) {
+		return;
+	}
+	wp_deregister_style( 'dashicons' );
+}
 	add_action( 'wp_enqueue_scripts', 'wpdocs_dequeue_dashicon' );
 
 // Disable Gutenberg editor.
-add_filter('use_block_editor_for_post_type', '__return_false', 10);
+add_filter( 'use_block_editor_for_post_type', '__return_false', 10 );
 // Don't load Gutenberg-related stylesheets.
 add_action( 'wp_enqueue_scripts', 'remove_block_css', 100 );
 function remove_block_css() {
-    wp_dequeue_style( 'wp-block-library' ); // Wordpress core
-    wp_dequeue_style( 'wp-block-library-theme' ); // Wordpress core
-    wp_dequeue_style( 'wc-block-style' ); // WooCommerce
-    wp_dequeue_style( 'storefront-gutenberg-blocks' ); // Storefront theme
+	wp_dequeue_style( 'wp-block-library' ); // WordPress core
+	wp_dequeue_style( 'wp-block-library-theme' ); // WordPress core
+	wp_dequeue_style( 'wc-block-style' ); // WooCommerce
+	wp_dequeue_style( 'storefront-gutenberg-blocks' ); // Storefront theme
 }
 
 //Optimizations
 function wpb_remove_version() {
 	return '';
-	}
-	add_filter('the_generator', 'wpb_remove_version');
+}
+	add_filter( 'the_generator', 'wpb_remove_version' );

@@ -6,7 +6,9 @@
  */
 
 // exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Main Navigation Fallback
@@ -27,11 +29,11 @@ function xt_main_menu_fallback() {
 
 		<?php
 
-	} elseif( is_user_logged_in() && current_user_can( 'edit_theme_options' ) ) {
+	} elseif ( is_user_logged_in() && current_user_can( 'edit_theme_options' ) ) {
 
 		echo '<ul class="xt-menu">';
 		echo '<li class="menu-item">';
-		echo '<a href="'. esc_url( admin_url( '/nav-menus.php' ) ) .'">'. __( 'Add Menu', 'xt-framework' ) .'</a>'; // WPCS: XSS ok.
+		echo '<a href="' . esc_url( admin_url( '/nav-menus.php' ) ) . '">' . __( 'Add Menu', 'xt-framework' ) . '</a>'; // WPCS: XSS ok.
 		echo '</li>';
 		echo '</ul>';
 
@@ -58,11 +60,11 @@ function xt_mobile_menu_fallback() {
 
 		<?php
 
-	} elseif( is_user_logged_in() && current_user_can( 'edit_theme_options' ) ) {
+	} elseif ( is_user_logged_in() && current_user_can( 'edit_theme_options' ) ) {
 
 		echo '<ul class="xt-menu">';
 		echo '<li class="menu-item">';
-		echo '<a href="'. esc_url( admin_url( '/nav-menus.php' ) ) .'">'. __( 'Add Menu', 'xt-framework' ) .'</a>'; // WPCS: XSS ok.
+		echo '<a href="' . esc_url( admin_url( '/nav-menus.php' ) ) . '">' . __( 'Add Menu', 'xt-framework' ) . '</a>'; // WPCS: XSS ok.
 		echo '</li>';
 		echo '</ul>';
 
@@ -85,9 +87,9 @@ function xt_menu_fallback() {
 
 		<?php
 
-	} elseif( is_user_logged_in() && current_user_can( 'edit_theme_options' ) ) {
+	} elseif ( is_user_logged_in() && current_user_can( 'edit_theme_options' ) ) {
 
-		echo '<a href="'. esc_url( admin_url( '/nav-menus.php' ) ) .'">'. __( 'Add Menu', 'xt-framework' ) .'</a>'; // WPCS: XSS ok.
+		echo '<a href="' . esc_url( admin_url( '/nav-menus.php' ) ) . '">' . __( 'Add Menu', 'xt-framework' ) . '</a>'; // WPCS: XSS ok.
 
 	}
 
@@ -98,7 +100,7 @@ function xt_menu_fallback() {
  */
 function xt_menu_description( $item_output, $item, $depth, $args ) {
 
-	if( 'main_menu' == $args->theme_location && strlen( $item->description ) > 1 ) {
+	if ( 'main_menu' == $args->theme_location && strlen( $item->description ) > 1 ) {
 
 		$item_output .= '<div class="xt-menu-description">' . $item->description . '</div>';
 

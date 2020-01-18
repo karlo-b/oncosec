@@ -521,7 +521,8 @@ template {
 }
 
 /* Buttons */
-.xt-button, input[type="submit"] {
+.xt-button,
+input[type="submit"] {
   -webkit-appearance: none;
   text-align: center;
   padding: 14px 16px;
@@ -539,7 +540,8 @@ template {
   font-weight: 700;
 }
 
-.xt-button:hover, input[type="submit"]:hover {
+.xt-button:hover,
+input[type="submit"]:hover {
   background: #dedee5;
   color: #074a85;
 }
@@ -2924,7 +2926,7 @@ body {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
   color: #074a85;
-  font-family: "xstream" !important;
+  font-family: 'xt-framework' !important;
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -3066,10 +3068,7 @@ div.wpcf7-mail-sent-ok {
   display: flex;
 }
 
-.vc_row.vc_row-flex
-.xt-container-center
-> .vc_column_container
-> .vc_column-inner {
+.vc_row.vc_row-flex .xt-container-center > .vc_column_container > .vc_column-inner {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -3086,30 +3085,21 @@ div.wpcf7-mail-sent-ok {
   z-index: 1;
 }
 
-.vc_row.vc_row-o-content-middle
-.xt-container-center
-> .vc_column_container
-> .vc_column-inner {
+.vc_row.vc_row-o-content-middle .xt-container-center > .vc_column_container > .vc_column-inner {
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
 }
 
-.vc_row.vc_row-o-content-top
-.xt-container-center
-> .vc_column_container
-> .vc_column-inner {
+.vc_row.vc_row-o-content-top .xt-container-center > .vc_column_container > .vc_column-inner {
   -webkit-box-pack: start;
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
 }
 
-.vc_row.vc_row-o-content-bottom
-.xt-container-center
-> .vc_column_container
-> .vc_column-inner {
+.vc_row.vc_row-o-content-bottom .xt-container-center > .vc_column_container > .vc_column-inner {
   -webkit-box-pack: end;
   -webkit-justify-content: flex-end;
   -ms-flex-pack: end;
@@ -3123,11 +3113,7 @@ div.wpcf7-mail-sent-ok {
 }
 
 .vc_col-has-fill > .vc_column-inner,
-.vc_row-has-fill
-+ .vc_row-full-width
-+ .vc_row
-> .vc_column_container
-> .vc_column-inner,
+.vc_row-has-fill + .vc_row-full-width + .vc_row > .vc_column_container > .vc_column-inner,
 .vc_row-has-fill + .vc_row > .vc_column_container > .vc_column-inner,
 .vc_row-has-fill > .vc_column_container > .vc_column-inner {
   padding-top: 0px !important;

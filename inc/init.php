@@ -51,6 +51,9 @@ require_once( XT_THEME_DIR . '/inc/integration/gutenberg/gutenberg.php' );
 // Customizer
 require_once( XT_THEME_DIR . '/inc/customizer/customizer-functions.php' );
 
+// CPT
+require_once(XT_THEME_DIR .'/inc/custom_types/tours.php');
+
 // WpBAkery
 require_once( XT_THEME_DIR . '/inc/wpbakery.php' );
 

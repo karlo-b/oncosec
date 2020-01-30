@@ -24,7 +24,7 @@ $mobile_logo_url    =  get_theme_mod( 'mobile_logo' );
 
 if($mobile_logo_url  ){
 	echo '<div class="xt-mobile-logo"'. esc_html( $menu_active_logo ) .' itemscope="itemscope" itemtype="https://schema.org/Organization">';
-	echo '<a class="xt-remove-font-size" href="'. esc_url( $menu_logo_url ) .'" itemprop="url">';
+	echo '<a class="xt-remove-font-size" href="'. get_home_url( null, '/' ).'" itemprop="url">';
 	echo '<img src="'. $mobile_logo_url .'" alt="'.esc_html( get_bloginfo( 'name' ) ).' " title="'. esc_attr(get_bloginfo( 'name' ) ) .'" itemprop="logo" />';
 	echo '</a>';
 	echo '</div>';

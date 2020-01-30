@@ -3382,7 +3382,7 @@ ul.wpb_thumbnails-fluid > li {
   max-width: max-content;
 }
 
-.xt-btnge {
+.xt-btn-orange {
   color: #fff;
   text-transform: uppercase;
   border-radius: 25px;
@@ -3397,7 +3397,7 @@ ul.wpb_thumbnails-fluid > li {
   font-weight: 400 !important;
 }
 
-.xt-btnge:hover {
+.xt-btn-orange:hover {
   background-color: #0d426b;
   color: #fff !important;
   text-decoration: none;
@@ -3645,7 +3645,7 @@ ul.wpb_thumbnails-fluid > li {
   font-size: 12px;
 }
 
-.footer-widgets .xt-container .xt-footer-widget .xt-btnge {
+.footer-widgets .xt-container .xt-footer-widget .xt-btn-orange {
   margin-left: 0px;
   margin-right: 0px;
   line-height: 24px;
@@ -3653,7 +3653,7 @@ ul.wpb_thumbnails-fluid > li {
   line-height: 1.8;
 }
 
-.footer-widgets .xt-container .xt-footer-widget .xt-btnge:hover {
+.footer-widgets .xt-container .xt-footer-widget .xt-btn-orange:hover {
   background-color: #faa94b !important;
 }
 

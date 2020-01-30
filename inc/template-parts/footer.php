@@ -36,6 +36,21 @@ $footer_column_two_layout = get_theme_mod( 'footer_column_two_layout', 'text' );
 
 		<footer id="footer" class="xt-page-footer" itemscope="itemscope" itemtype="https://schema.org/WPFooter">
 
+		<div class="footer-widgets">
+			<div class="xt-container  xt-container-center">
+				<div class="xt-footer-widget">
+				<?php dynamic_sidebar('footer-1'); ?>
+				</div>
+				<div class="xt-footer-widget">
+				<?php dynamic_sidebar('footer-2'); ?>
+				</div>
+				<div class="xt-footer-widget">
+				<?php dynamic_sidebar('footer-3'); ?>
+				</div>
+
+			</div>
+		</div>
+
 			<?php do_action( 'xt_footer_open' ); ?>
 
 			<div class="xt-inner-footer xt-container xt-container-center<?php echo esc_attr( $layout ); ?>">

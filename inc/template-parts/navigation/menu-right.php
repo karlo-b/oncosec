@@ -16,7 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<div class="xt-grid xt-grid-collapse">
 
 		<div class="xt-1-4 xt-logo-container">
-
 			<?php get_template_part( 'inc/template-parts/logo/logo' ); ?>
 
 		</div>

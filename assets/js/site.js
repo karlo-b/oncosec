@@ -324,27 +324,6 @@
 			$('.xt-transparent-header-advanced-wrapper').slideUp();
 		});
 
-		var modal = document.querySelector(".xt-modal");
-		var trigger = document.querySelector(".trigger");
-		var closeButton = document.querySelector(".close-button");
-
-		function toggleModal() {
-			modal.classList.toggle("show-modal");
-		}
-
-		function windowOnClick(event) {
-			if (event.target === modal) {
-				toggleModal();
-				console.log('cli');
-			}
-		}
-	if (trigger) {
-		trigger.addEventListener("click", toggleModal);
-	}
-	if (closeButton) {
-		closeButton.addEventListener("click", toggleModal);
-	}	
-		window.addEventListener("click", windowOnClick);
 
 	equalheight = function (container) {
 		var currentTallest = 0,
@@ -376,81 +355,36 @@
 		});
 	}
 	$(window).load(function () {
-		equalheight('.xt-podcast-equal .xt-image-block');
+		equalheight('.xt-featured-articles .link-box');
 		
 		
 	});
 	$(window).resize(function () {
-		equalheight('.xt-podcast-equal .xt-image-block');
+		equalheight('.xt-featured-articles .link-box');
 		
 		
 	});
-/*
-	$('a[href*="#"]')
-		// Remove links that don't actually link to anything
-		.not('[href="#"]')
-		.not('[href="#0"]')
-		.click(function (event) {
-			// On-page links
-			if (
-				location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') &&
-				location.hostname == this.hostname
-			) {
-				// Figure out element to scroll to
-				var target = $(this.hash);
-				target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-				// Does a scroll target exist?
-				if (target.length) {
-					// Only prevent default if animation is actually gonna happen
-					event.preventDefault();
-					$('html, body').animate({
-						scrollTop: target.offset().top
-					}, 1000, function () {
-						// Callback after animation
-						// Must change focus!
-						var $target = $(target);
-						$target.focus();
-						if ($target.is(":focus")) { // Checking if the target was focused
-							return false;
-						} else {
-							$target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
-							$target.focus(); // Set focus again
-						};
-					});
-				}
-			}
-		});
-*/
 
-		 $('.slider-for').slick({
-			slidesToShow: 1,
-			slidesToScroll: 1,
-			arrows: false,
-			fade: true,
-			asNavFor: '.slider-nav'
-		});
-		$('.slider-nav').slick({
-			slidesToShow: 4,
-			slidesToScroll: 1,
-			asNavFor: '.slider-for',
-			dots: false,
-			arrows: true,
-			prevArrow: '<div class="slick-prev">&#10229;</div>',
-			nextArrow: '<div class="slick-next">&#10230;</div>',
-			focusOnSelect: true,
-			responsive: [
-				{
-					breakpoint: 767,
-					settings: {
-						slidesToShow: 2,
-						slidesToScroll: 1
-					}
-				}
+if($('.xt-slider').length){
+	$('.xt-slider').slick({
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		arrows: true,
+		fade: true,
+		nextArrow: '<span class="slick-next chevron right"></span>',
+		prevArrow: '<span class="slick-prev chevron left"></span>',
+	});
+}
+		
 
-			]
+var modal = $(".xt-modal");
+$(".trigger").click(function(){
+	$(this).parent().parent().find(".xt-modal").addClass("show-modal");
+});
+$(".close-button, .close-button-2").click(function(){
+	$(".xt-modal").removeClass("show-modal");
+});
 
-		});
-
-	$('.xt-image-block p:empty').remove();
+	
 
 })( jQuery );

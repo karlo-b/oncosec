@@ -2501,6 +2501,16 @@ Kirki::add_field( 'xt', array(
 
 // Logo URL
 Kirki::add_field( 'xt', array(
+	'type'				=>			'image',
+	'settings'			=>			'mobile_logo',
+	'label'				=>			esc_attr__( 'Mobile Logo ', 'xt-framework' ),
+	'section'			=>			'title_tagline',
+	'transport'			=>			'postMessage',
+	'priority'			=>			30,
+) );
+
+
+Kirki::add_field( 'xt', array(
 	'type'				=>			'link',
 	'settings'			=>			'menu_logo_url',
 	'label'				=>			esc_attr__( 'Custom Logo URL', 'xt-framework' ),

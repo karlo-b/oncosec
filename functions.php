@@ -114,11 +114,31 @@ function xt_sidebars() {
 	);
 	register_sidebar(
 		array(
-			'name'          => __( 'Post Brands Row', 'xt-framework' ),
-			'id'            => 'single-brands-row',
+			'name'          => __( 'Footer Widget 1', 'xt-framework' ),
+			'id'            => 'footer-1',
 			'before_widget' => '<div id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</div>',
-			'before_title'  => '<h4 class="xt-widgettitle">',
+			'before_title'  => '<h4 class="xt-widget-title">',
+			'after_title'   => '</h4>',
+		)
+	);
+	register_sidebar(
+		array(
+			'name'          => __( 'Footer Widget 2', 'xt-framework' ),
+			'id'            => 'footer-2',
+			'before_widget' => '<div id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h4 class="xt-widget-title">',
+			'after_title'   => '</h4>',
+		)
+	);
+	register_sidebar(
+		array(
+			'name'          => __( 'Footer Widget 3', 'xt-framework' ),
+			'id'            => 'footer-3',
+			'before_widget' => '<div id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h4 class="xt-widget-title">',
 			'after_title'   => '</h4>',
 		)
 	);
@@ -130,7 +150,7 @@ add_action( 'widgets_init', 'xt_sidebars' );
  * Scripts & Styles
  */
 function xt_scripts() {
-
+	wp_enqueue_script( 'xt-slick', get_template_directory_uri() . '/js/min/slick-min.js', array( 'jquery' ), XT_VERSION, true );
 	wp_enqueue_script( 'xt-site', get_template_directory_uri() . '/js/min/site-min.js', array( 'jquery' ), XT_VERSION, true );
 	// mobile menu js
 	if ( ! get_theme_mod( 'mobile_menu_options' ) || get_theme_mod( 'mobile_menu_options' ) == 'menu-mobile-hamburger' ) {
@@ -216,7 +236,7 @@ add_action( 'wp_enqueue_scripts', 'xt_scripts', 10 );
 
 function xt_add_google_fonts() {
 
-	wp_enqueue_style( 'xt-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,700&display=swap', false );
+	wp_enqueue_style( 'xt-google-fonts', 'https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap', false );
 }
 
 	add_action( 'wp_enqueue_scripts', 'xt_add_google_fonts' );

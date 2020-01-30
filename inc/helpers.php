@@ -1196,3 +1196,37 @@ function wp_get_attachment( $attachment_id ) {
 		'title'       => $attachment->post_title,
 	);
 }
+
+// Shortcode: [button text="" url="" class=""]
+function create_button_shortcode( $atts ) {
+
+	$atts = shortcode_atts(
+		array(
+			'text'  => '',
+			'url'   => '',
+			'class' => '',
+		),
+		$atts,
+		'button'
+	);
+
+	$text  = $atts['text'];
+	$url   = $atts['url'];
+	$class = $atts['class'];
+
+	return '<a class="' . $class . ' xt-button" href="' . $url . '">' . $text . '</a>';
+
+}
+	add_shortcode( 'button', 'create_button_shortcode' );
+
+
+	// WpBakery Admin Styles
+	add_action('admin_head', 'vc_cstomize');
+
+	function vc_cstomize() {
+	  echo '<style>
+		.wpb_xt-team-member .textarea_html{
+			display:none;
+		}
+	  </style>';
+	}

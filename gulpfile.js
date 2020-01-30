@@ -65,8 +65,8 @@ gulp.task('woo_styles_min', function () {
 gulp.task('serve', function () {
 
 	browserSync.init({
-		proxy: 'http://framework.local/',
-		host: 'framework.local',
+		proxy: 'http://oncosec.local/',
+		host: 'oncosec.local',
 		notify: true,
 	});
 

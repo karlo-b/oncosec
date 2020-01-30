@@ -13,21 +13,17 @@ Text Domain:	xt-framework
 
 // Normalize
 @import "config/normalize";
-
 // Config
 @import "config/config";
-
 // CSS Framework
 @import "base/framework";
-
 // Typography
 @import "base/typography";
-
 // Defaults
 @import "base/defaults";
-
 // Navigation
 @import "base/navigation";
-
 // Content
 @import "modules/content";
+// Pages
+@import "modules/pages";

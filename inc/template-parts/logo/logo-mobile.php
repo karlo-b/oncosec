@@ -19,23 +19,15 @@ $custom_logo_url = apply_filters( 'xt_logo_mobile', $custom_logo_url[0] );
 $tagline         = get_bloginfo( 'description' );
 $tagline_toggle  = get_theme_mod( 'menu_logo_description_mobile' );
 
-if ( has_custom_logo() ) {
 
-	echo '<div class="xt-mobile-logo" itemscope="itemscope" itemtype="https://schema.org/Organization">';
-	echo '<a href="'. esc_url( $menu_logo_url ) .'" itemprop="url">';
-	echo '<img src="'. esc_url( $custom_logo_url ) .'" alt="'. esc_attr( $menu_alt_tag ) .'" title="'. esc_attr( $menu_title_tag ) .'" itemprop="logo" />';
+$mobile_logo_url    =  get_theme_mod( 'mobile_logo' );
+
+if($mobile_logo_url  ){
+	echo '<div class="xt-mobile-logo"'. esc_html( $menu_active_logo ) .' itemscope="itemscope" itemtype="https://schema.org/Organization">';
+	echo '<a class="xt-remove-font-size" href="'. esc_url( $menu_logo_url ) .'" itemprop="url">';
+	echo '<img src="'. $mobile_logo_url .'" alt="'.esc_html( get_bloginfo( 'name' ) ).' " title="'. esc_attr(get_bloginfo( 'name' ) ) .'" itemprop="logo" />';
 	echo '</a>';
 	echo '</div>';
-
-} else {
-
-	echo '<div class="xt-mobile-logo" itemscope="itemscope" itemtype="https://schema.org/Organization">';
-	echo '<span class="site-title" itemprop="name">';
-	echo '<a href="'. esc_url( $menu_logo_url ) .'" rel="home" itemprop="url">'. esc_html( get_bloginfo( 'name' ) ) .'</a>';
-	echo '</span>';
-	if( !empty( $tagline ) && $tagline_toggle ) {
-	echo '<p class="site-description xt-tagline" itemprop="description">'. esc_html( $tagline ) .'</p>';
-	}
-	echo '</div>';
-
 }
+
+

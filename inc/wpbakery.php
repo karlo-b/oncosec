@@ -621,3 +621,464 @@ function xtopenposition_integrateWithVC() {
 		)
 	);
 }
+
+//Pipeline
+
+
+
+if ( ! function_exists( 'pipeline' ) ) {
+	function pipeline( $atts, $content = null ) {
+		extract(
+			shortcode_atts(
+				array(
+					'title' => '',
+				),
+				$atts
+			)
+		);
+		return '<div class="xt-pipeline"><div class="pipeline-title"><h2 class="pipelineTitle">Pipeline</h2><h3>' . $title . '</h3></div><div class="pipeline-list">' . do_shortcode( $content ) . '</div></div>';
+	}
+	add_shortcode( 'pipeline', 'pipeline' );
+}
+
+if ( ! function_exists( 'single_pipeline' ) ) {
+	function single_pipeline( $atts, $content ) {
+		extract(
+			shortcode_atts(
+				array(
+					'regimen'    => '',
+					'trial'      => '',
+					'indication' => '',
+					'partner'    => '',
+					'phase'      => '',
+					'link'       => '',
+				),
+				$atts
+			)
+		);
+
+		$image     = wp_get_attachment_image_src( $partner, 'full' );
+		$image_src = $image['0'];
+		$output   .= '<div class="pipeline-item">';
+		$output   .= ( $link ) ? '<a href="" class="pipeline-inner">' : '<div class="pipeline-inner">';
+		$output   .= '<div class="inner-col-2"><p class="rowHeading">REGIMEN</p><div>' . rawurldecode( base64_decode( $regimen ) ) . '</div></div>';
+		$output   .= '<div class="inner-col-2"><p class="rowHeading">TRIAL</p><div>' . rawurldecode( base64_decode( $trial ) ) . '</div></div>';
+		$output   .= '<div class="inner-col-2"><p class="rowHeading">INDICATION</p><div>' . rawurldecode( base64_decode( $indication ) ) . '</div></div>';
+		$output   .= '<div class="inner-col-2"><p class="rowHeading">PARTNER</p><div><img src="' . $image_src . '" alt="partner-image"/></div></div>';
+
+		if ( $phase ) {
+			$output .= '<div class="inner-col-4 phase"><div class="progressHeader pl-0">
+			<span>PHASE 1</span>
+			<span>PHASE 2</span>
+			<span>PIVOTAL</span>
+		</div>
+			<div class="progress">
+			<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:' . $phase . '%"></div>
+		</div>
+		</div>';
+		}
+
+		$output .= ( $link ) ? '</a>' : '</div>';
+		$output .= '</div>';
+		return $output;
+	}
+	add_shortcode( 'single_pipeline', 'single_pipeline' );
+}
+
+
+
+
+// Mapping
+vc_map(
+	array(
+		'name'                    => __( 'Pipeline', 'xstream' ),
+		'base'                    => 'pipeline',
+		'icon'                    => get_stylesheet_directory_uri() . '/img/icons/icon.png',
+		'as_parent'               => array( 'only' => 'single_pipeline' ),
+		'content_element'         => true,
+		'show_settings_on_create' => true,
+		'is_container'            => true,
+		'js_view'                 => 'VcColumnView',
+		'category'                => array( 'XT', 'Content' ),
+		'params'                  => array(
+			array(
+				'type'        => 'textfield',
+				'heading'     => __( 'Title', 'xstream' ),
+				'param_name'  => 'title',
+				'admin_label' => true,
+			),
+		),
+	)
+);
+
+vc_map(
+	array(
+		'name'                    => __( 'Pipeline Item', 'xstream' ),
+		'base'                    => 'single_pipeline',
+		'icon'                    => get_stylesheet_directory_uri() . '/img/icons/icon.png',
+		'content_element'         => true,
+		'as_child'                => array( 'only' => 'pipeline' ),
+		'show_settings_on_create' => true,
+		'params'                  => array(
+			array(
+				'type'       => 'textarea_raw_html',
+				'heading'    => __( 'REGIMEN', 'xstream' ),
+				'param_name' => 'regimen',
+				'class'      => 'size-fix',
+			),
+			array(
+				'type'       => 'textarea_raw_html',
+				'heading'    => __( 'Trial', 'xstream' ),
+				'param_name' => 'trial',
+				'class'      => 'size-fix',
+			),
+			array(
+				'type'       => 'textarea_raw_html',
+				'heading'    => __( 'Indication', 'xstream' ),
+				'param_name' => 'indication',
+				'class'      => 'size-fix',
+			),
+			array(
+				'type'       => 'attach_image',
+				'heading'    => __( 'Partner', 'xstream' ),
+				'param_name' => 'partner',
+			),
+			array(
+				'type'        => 'textfield',
+				'heading'     => __( 'Phase', 'xstream' ),
+				'param_name'  => 'phase',
+				'description' => __( 'Progress percentage value without  %', 'textdomain' ),
+			),
+			array(
+				'type'       => 'textfield',
+				'heading'    => __( 'Link', 'xstream' ),
+				'param_name' => 'link',
+			),
+
+		),
+	)
+);
+
+if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
+	class WPBakeryShortCode_Pipeline extends WPBakeryShortCodesContainer {
+	}
+}
+if ( class_exists( 'WPBakeryShortCode' ) ) {
+	class WPBakeryShortCode_Single_Pipeline extends WPBakeryShortCode {
+	}
+}
+
+
+//Image Hover
+
+// Create Shortcode xt-step-hover
+// Use the shortcode: [xt-step-hover image="" content=""]
+function create_xtstephover_shortcode( $atts, $content ) {
+	// Attributes
+	$atts = shortcode_atts(
+		array(
+			'image'   => '',
+			'content' => '',
+		),
+		$atts,
+		'xt-step-hover'
+	);
+	// Attributes in var
+
+	$image_obj = wp_get_attachment( $atts['image'] );
+	$image_src = $image_obj['src'];
+	$image_alt = $image_obj['alt'];
+
+	// Output Code
+	$output  = '<div class="xt-step-hover">';
+	$output .= '<div class="image"><img src="' . $image_src . '" alt="' . $image_alt . '"/></div>';
+	$output .= '<div class="hover">' . $content . '</div>';
+	$output .= '</div>';
+
+	return $output;
+}
+add_shortcode( 'xt-step-hover', 'create_xtstephover_shortcode' );
+
+// Create Step Hover element for Visual Composer
+add_action( 'vc_before_init', 'xtstephover_integrateWithVC' );
+function xtstephover_integrateWithVC() {
+	vc_map(
+		array(
+			'name'                    => __( 'Step Hover', 'xstream' ),
+			'base'                    => 'xt-step-hover',
+			'show_settings_on_create' => false,
+			'category'                => __( 'XT', 'xstream' ),
+			'icon'                    => get_stylesheet_directory_uri() . '/img/icons/icon.png',
+			'params'                  => array(
+				array(
+					'type'        => 'attach_image',
+					'holder'      => 'div',
+					'class'       => '',
+					'admin_label' => false,
+					'heading'     => __( 'Image', 'xstream' ),
+					'param_name'  => 'image',
+				),
+				array(
+					'type'        => 'textarea_html',
+					'holder'      => 'div',
+					'class'       => '',
+					'admin_label' => false,
+					'heading'     => __( 'Content', 'xstream' ),
+					'param_name'  => 'content',
+				),
+			),
+		)
+	);
+}
+
+// Shadow box
+// Create Shortcode xt-shadow-box
+// Use the shortcode: [xt-shadow-box image="" link="" content=""]
+function create_xtshadowbox_shortcode( $atts, $content ) {
+	// Attributes
+	$atts = shortcode_atts(
+		array(
+			'image'   => '',
+			'link'    => '',
+			'content' => '',
+		),
+		$atts,
+		'xt-shadow-box'
+	);
+	// Attributes in var
+	$image = $atts['image'];
+	$link  = $atts['link'];
+
+	$image_obj = wp_get_attachment( $atts['image'] );
+	$image_src = $image_obj['src'];
+	$image_alt = $image_obj['alt'];
+
+	// Output Code
+	$output  = '<div class="shadow-box">';
+	$output .= ( $link ) ? '<a class="inner" href="' . $link . '">' : '<div class="inner">';
+	$output .= '<div class="image"><img src="' . $image_src . '" alt="' . $image_alt . '"/></div>';
+	$output .= '<div class="content">' . $content . '</div>';
+	$output .= ( $link ) ? '</a>' : '</div>';
+	$output .= '</div>';
+
+	return $output;
+}
+add_shortcode( 'xt-shadow-box', 'create_xtshadowbox_shortcode' );
+
+// Create Shadow Box Logo element for Visual Composer
+add_action( 'vc_before_init', 'xtshadowbox_integrateWithVC' );
+function xtshadowbox_integrateWithVC() {
+	vc_map(
+		array(
+			'name'                    => __( 'Shadow Box Logo', 'xstream' ),
+			'base'                    => 'xt-shadow-box',
+			'icon'                    => get_stylesheet_directory_uri() . '/img/icons/icon.png',
+			'show_settings_on_create' => false,
+			'category'                => __( 'XT', 'xstream' ),
+			'params'                  => array(
+				array(
+					'type'        => 'attach_image',
+					'holder'      => 'div',
+					'class'       => '',
+					'admin_label' => false,
+					'heading'     => __( 'Image', 'xstream' ),
+					'param_name'  => 'image',
+				),
+				array(
+					'type'        => 'textfield',
+					'holder'      => 'div',
+					'class'       => '',
+					'admin_label' => false,
+					'heading'     => __( 'Link', 'xstream' ),
+					'param_name'  => 'link',
+				),
+				array(
+					'type'        => 'textarea_html',
+					'holder'      => 'div',
+					'class'       => '',
+					'admin_label' => false,
+					'heading'     => __( 'Content', 'xstream' ),
+					'param_name'  => 'content',
+				),
+			),
+		)
+	);
+}
+
+
+// Create Shortcode xt-video-popup
+// Use the shortcode: [xt-video-popup image="" type="" is=""]
+function create_xtvideopopup_shortcode($atts) {
+	// Attributes
+	$atts = shortcode_atts(
+		array(
+			'image' => '',
+			'type' => '',
+			'id' => '',
+			'title' => '',
+		),
+		$atts,
+		'xt-video-popup'
+	);
+	// Attributes in var
+	$image = $atts['image'];
+	$type = $atts['type'];
+	$id = $atts['id'];
+	$title = $atts['title'];
+
+	$image_obj = wp_get_attachment( $atts['image'] );
+	$image_src = $image_obj['src'];
+	$image_alt = $image_obj['alt'];
+	
+	if($title){
+		$title = '<h3 class="video-title">'.$title.'</h3>';
+	}
+	
+	if($type == 'youtube'){
+		$video = '<div class="vpop" data-type="youtube" data-id="'.$id.'" data-autoplay="true">'.$title.'
+		<img src="' . $image_src . '" alt="' . $image_alt . '"/>
+		</div>';
+	}
+	if($type == 'vimeo'){
+		$video = '<div class="vpop" data-type="vimeo" data-id="'.$id.'" data-autoplay="true">'.$title.'
+		<img src="' . $image_src . '" alt="' . $image_alt . '"/>
+		</div>';
+	}
+
+	$output .='<div class="xt-video-container">';
+	$output .= $video;
+	$output .='<div id="video-popup-overlay"></div>
+	<div id="video-popup-container">
+	  <div id="video-popup-close" class="fade">&#10005;</div>
+	  <div id="video-popup-iframe-container">
+		<iframe id="video-popup-iframe" src="" width="100%" height="100%" frameborder="0"></iframe>
+	  </div>
+	</div>';
+	$output .='</div>';
+
+	return $output;
+}
+add_shortcode( 'xt-video-popup', 'create_xtvideopopup_shortcode' );
+
+// Create Video Popup element for Visual Composer
+add_action( 'vc_before_init', 'xtvideopopup_integrateWithVC' );
+function xtvideopopup_integrateWithVC() {
+	vc_map( array(
+		'name' => __( 'Video Popup', 'xstream' ),
+		'base' => 'xt-video-popup',
+		'icon'                    => get_stylesheet_directory_uri() . '/img/icons/icon.png',
+		'show_settings_on_create' => false,
+		'category' => __( 'XT', 'xstream'),
+		'params' => array(
+			array(
+				'type' => 'attach_image',
+				'holder' => 'div',
+				'class' => '',
+				'admin_label' => false,
+				'heading' => __( 'Image', 'xstream' ),
+				'param_name' => 'image',
+			),
+			array(
+				'type' => 'checkbox',
+				'holder' => 'div',
+				'class' => '',
+				'admin_label' => false,
+				'heading' => __( 'Video Type', 'xstream' ),
+				'param_name' => 'type',
+				'value' => array(
+					__( 'YouTube',  'xstream'  ) => 'youtube',
+					__( 'Vimeo',  'xstream'  ) => 'vimeo',
+					
+				  ),
+			),
+			array(
+				'type' => 'textfield',
+				'holder' => 'div',
+				'class' => '',
+				'admin_label' => false,
+				'heading' => __( 'Video ID', 'xstream' ),
+				'param_name' => 'id',
+			),
+			array(
+				'type' => 'textfield',
+				'holder' => 'div',
+				'class' => '',
+				'admin_label' => false,
+				'heading' => __( 'Title', 'xstream' ),
+				'param_name' => 'title',
+			),
+		)
+	) );
+}
+
+// Create Shortcode featured-articles
+// Use the shortcode: [featured-articles Image="" title="" link=""]
+function create_featuredarticles_shortcode($atts, $content) {
+	// Attributes
+	$atts = shortcode_atts(
+		array(
+			'image' => '',
+			'link' => '',
+			'content' => '',
+		),
+		$atts,
+		'featured-articles'
+	);
+	// Attributes in var
+	$image = $atts['image'];
+	$link = $atts['link'];
+
+
+	$image_obj = wp_get_attachment( $atts['image'] );
+	$image_src = $image_obj['src'];
+	$image_alt = $image_obj['alt'];
+
+	// Output Code
+	$output = '<div class="featured-article">';
+	$output .= '<a href="'.$link.'">';
+	$output .= '<img src="' . $image_src . '" alt="' . $image_alt . '"/>';
+	$output .= '<div>'.$content.'</div>';
+	$output .= '</a>';
+	$output .= '</div>';
+
+	return $output;
+}
+add_shortcode( 'featured-articles', 'create_featuredarticles_shortcode' );
+
+// Create Featured Articles element for Visual Composer
+add_action( 'vc_before_init', 'featuredarticles_integrateWithVC' );
+function featuredarticles_integrateWithVC() {
+	vc_map( array(
+		'name' => __( 'Featured Articles', 'xstream' ),
+		'base' => 'featured-articles',
+		'icon'                    => get_stylesheet_directory_uri() . '/img/icons/icon.png',
+		'show_settings_on_create' => false,
+		'category' => __( 'XT', 'xstream'),
+		'params' => array(
+			array(
+				'type' => 'attach_image',
+				'holder' => 'div',
+				'class' => '',
+				'admin_label' => false,
+				'heading' => __( 'Image', 'xstream' ),
+				'param_name' => 'image',
+			),
+			array(
+				'type' => 'textarea_html',
+				'holder' => 'div',
+				'class' => '',
+				'admin_label' => false,
+				'heading' => __( 'Content', 'xstream' ),
+				'param_name' => 'content',
+			),
+			array(
+				'type' => 'textfield',
+				'holder' => 'div',
+				'class' => '',
+				'admin_label' => false,
+				'heading' => __( 'Link', 'xstream' ),
+				'param_name' => 'link',
+			),
+		)
+	) );
+}

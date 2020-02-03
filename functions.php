@@ -236,7 +236,7 @@ add_action( 'wp_enqueue_scripts', 'xt_scripts', 10 );
 
 function xt_add_google_fonts() {
 
-	wp_enqueue_style( 'xt-google-fonts', 'https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap', false );
+	wp_enqueue_style( 'xt-google-fonts', 'https://fonts.googleapis.com/css?family=Lato:300,400,700|Open+Sans:300,400&display=swap', false );
 }
 
 	add_action( 'wp_enqueue_scripts', 'xt_add_google_fonts' );
